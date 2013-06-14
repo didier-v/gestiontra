@@ -21,7 +21,7 @@
 		<th>TR à enlever</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="frais in listeFrais" ng-dblclick="selectFrais(frais)"
+		<tr ng-repeat="frais in listeFrais" ng-dblclick="selectRecord(frais)"
 			ng-mouseenter="over=true" ng-mouseleave="over=false">
 			<td class="span1"><span ng-show="over==true"><button ng-click="deleteFrais(frais)"><i class="icon-trash"></i></button></span></td>
 			<td >{{frais.date_frais | iso2date}}</td>

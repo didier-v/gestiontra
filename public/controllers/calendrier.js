@@ -13,7 +13,7 @@ function CalendrierCtrl($scope,DataSource, $dialog,Selection) {
 		$scope.calendrier=resourceCalendrier.get(critere);
 	});
 	
-	$scope.select=function(jour) {
+	$scope.selectRecord=function(jour) {
 		var d=$dialog.dialog({templateUrl:"partials/jour.html",
 							controller: "JourCtrl",
 							resolve: {jour: function(){ return angular.copy(jour); }}

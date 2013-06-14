@@ -36,7 +36,7 @@ function CongesCtrl($scope,DataSource, Selection,$dialog) {
 
 	$scope.fetchConges();
 	
-	$scope.selectConge=function(conge) {
+	$scope.selectRecord=function(conge) {
 		var d=$dialog.dialog({templateUrl:"partials/conge.html",
 							controller: "CongeCtrl",
 							resolve: {conge: function(){ return angular.copy(conge); }}

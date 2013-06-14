@@ -20,7 +20,7 @@
 		<th>constante</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="vehicule in vehicules" ng-dblclick="selectVehicule(vehicule)"
+		<tr ng-repeat="vehicule in vehicules" ng-dblclick="selectRecord(vehicule)"
 		ng-mouseenter="over=true" ng-mouseleave="over=false">
 			<td class="span1"><span ng-show="over==true"><button ng-click="deleteVehicule(vehicule)"><i class="icon-trash"></i></button></span></td>
 			<td >{{vehicule.type_vehicule}}</td>

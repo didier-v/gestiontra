@@ -4,7 +4,7 @@ function PersonnesCtrl($scope,DataSource, $dialog) {
 	// var personnesDataSource = resourcePersonne.get();
 	var resourcePersonne = DataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
-	$scope.selectPersonne=function(personne) {
+	$scope.selectRecord=function(personne) {
 		var d=$dialog.dialog({templateUrl:"partials/personne.html",
 							controller: "PersonneCtrl",
 							resolve: {personne: function(){ return angular.copy(personne); }}

@@ -4,7 +4,7 @@ function VehiculesCtrl($scope,DataSource,$dialog) {
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
-	$scope.selectVehicule=function(vehicule) {
+	$scope.selectRecord=function(vehicule) {
 		var d=$dialog.dialog({templateUrl:"partials/vehicule.html",
 							controller: "VehiculeCtrl",
 							resolve: {vehicule: function(){ return angular.copy(vehicule); }}

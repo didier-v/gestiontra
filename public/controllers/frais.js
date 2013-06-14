@@ -36,7 +36,7 @@ function FraisListeCtrl($scope,DataSource,Selection,$dialog) {
 
 	$scope.fetchFrais();
 	
-	$scope.selectFrais=function(frais) {
+	$scope.selectRecord=function(frais) {
 		var d=$dialog.dialog({templateUrl:"partials/frais.html",
 							controller: "FraisCtrl",
 							resolve: {frais: function(){ return angular.copy(frais); }}

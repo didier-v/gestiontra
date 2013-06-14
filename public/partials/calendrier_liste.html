@@ -7,7 +7,7 @@
 		<th>Type</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="jour in calendrier" ng-dblclick="select(jour)"
+		<tr ng-repeat="jour in calendrier" ng-dblclick="selectRecord(jour)"
 		ng-mouseenter="over=true" ng-mouseleave="over=false">
 			<td class="span1"><span ng-show="over==true"><button ng-click="remove(jour)"><i class="icon-trash"></i></button></span></td>
 			<td >{{jour.jour | iso2date}}</td>

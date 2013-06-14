@@ -7,7 +7,7 @@
 		<th>Nom</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="personne in personnes" ng-dblclick="selectPersonne(personne)"
+		<tr ng-repeat="personne in personnes" ng-dblclick="selectRecord(personne)"
 			ng-mouseenter="over=true" ng-mouseleave="over=false">
 			<td class="span1"><span ng-show="over==true"><button ng-click="deletePersonne(personne)"><i class="icon-trash"></i></button></span></td>
 			<td >{{personne.prenom}}</td>
