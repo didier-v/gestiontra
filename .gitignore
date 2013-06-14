@@ -2,7 +2,7 @@
 *.komodoproject
 *.komodotools
 *.data
-app.js
+serveur_main.js
 data
 logmongodb.txt
 mongodb*
