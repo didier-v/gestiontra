@@ -1,7 +1,8 @@
 /* frais.js */
 /*global angular, console, _ , confirm */
 
-function FraisListeCtrl($scope,ResourceFrais,Selection,$dialog) {
+function FraisListeCtrl($scope,DataSource,Selection,$dialog) {
+	var resourceFrais = DataSource({nature:"frais"});
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
 		$scope.annee = Selection.annee();
@@ -26,7 +27,7 @@ function FraisListeCtrl($scope,ResourceFrais,Selection,$dialog) {
 
 		}
 		
-		$scope.listeFrais = ResourceFrais.get(critere);
+		$scope.listeFrais = resourceFrais.get(critere);
 	};
 	
 	//initialisation
@@ -64,7 +65,7 @@ function FraisListeCtrl($scope,ResourceFrais,Selection,$dialog) {
 		var d=$dialog.dialog({templateUrl:"partials/frais.html",
 							controller: "FraisCtrl",
 							resolve: {frais: function(){
-								var newFrais= new ResourceFrais({});
+								var newFrais= new resourceFrais({});
 								newFrais.nature="frais"; // ne pas oublier la nature
 								newFrais.id_personne = $scope.personne.id;
 								return newFrais; }

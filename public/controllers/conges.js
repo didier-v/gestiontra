@@ -1,7 +1,8 @@
 /* conges.js */
 /*global angular, console, _ , confirm */
 
-function CongesCtrl($scope,ResourceConge, Selection,$dialog) {
+function CongesCtrl($scope,DataSource, Selection,$dialog) {
+	var resourceConge= DataSource({nature:"conges"});;
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
 		$scope.annee = Selection.annee();
@@ -26,7 +27,7 @@ function CongesCtrl($scope,ResourceConge, Selection,$dialog) {
 
 		}
 		
-		$scope.conges = ResourceConge.get(critere);
+		$scope.conges = resourceConge.get(critere);
 	};
 	
 	//initialisation
@@ -64,7 +65,7 @@ function CongesCtrl($scope,ResourceConge, Selection,$dialog) {
 		var d=$dialog.dialog({templateUrl:"partials/conge.html",
 							controller: "CongeCtrl",
 							resolve: {conge: function(){
-								var newConge= new ResourceConge({});
+								var newConge= new resourceConge({});
 								newConge.nature="conges"; // ne pas oublier la nature
 								newConge.id_personne = $scope.personne.id;
 								return newConge; }
@@ -83,7 +84,7 @@ function CongesCtrl($scope,ResourceConge, Selection,$dialog) {
 
 } // CongesCtrl
 
-function CongeCtrl($scope, dialog,ResourceConge, conge,iso2dateFilter,date2isoFilter) {
+function CongeCtrl($scope, dialog, conge,iso2dateFilter,date2isoFilter) {
 	var d=new Date();
 	$scope.typesConges = [
 			{value:"Congé "+(d.getFullYear()-1)},
@@ -113,4 +114,4 @@ function CongeCtrl($scope, dialog,ResourceConge, conge,iso2dateFilter,date2isoFi
 
 	};
 	
-} //PersonneCtrl
+} //CongeCtrl

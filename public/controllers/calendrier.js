@@ -1,16 +1,16 @@
 /* calendrierCtrl.js */
 /*global angular, console, _, confirm */
-function CalendrierCtrl($scope,ResourceCalendrier, $dialog,Selection) {
+function CalendrierCtrl($scope,DataSource, $dialog,Selection) {
 	var	critere = {	};
 	$scope.annee= Selection.annee();
 	critere.jour= { '$regex': $scope.annee+'.*'};
-
-	$scope.calendrier=ResourceCalendrier.get(critere);
+	var resourceCalendrier = DataSource({nature:"jour_ferie"});
+	$scope.calendrier=resourceCalendrier.get(critere);
 
 	$scope.$on("anneeDidChange",function(event) {
 		$scope.annee = Selection.annee();
 		critere.jour= { '$regex': $scope.annee+'.*'};
-		$scope.calendrier=ResourceCalendrier.get(critere);
+		$scope.calendrier=resourceCalendrier.get(critere);
 	});
 	
 	$scope.select=function(jour) {
@@ -43,7 +43,7 @@ function CalendrierCtrl($scope,ResourceCalendrier, $dialog,Selection) {
 		var d=$dialog.dialog({templateUrl:"partials/jour.html",
 							controller: "JourCtrl",
 							resolve: {jour: function(){
-								var newJour= new ResourceCalendrier({});
+								var newJour= new resourceCalendrier({});
 								newJour.nature="jour_ferie"; // ne pas oublier la nature
 								return newJour; }
 							}

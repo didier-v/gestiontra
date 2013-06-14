@@ -1,7 +1,8 @@
 /* personnes.js */
 /*global angular, console, _ */
-function PersonnesCtrl($scope,resourcePersonne, $dialog) {
+function PersonnesCtrl($scope,DataSource, $dialog) {
 	// var personnesDataSource = resourcePersonne.get();
+	var resourcePersonne = DataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
 	$scope.selectPersonne=function(personne) {
 		var d=$dialog.dialog({templateUrl:"partials/personne.html",
@@ -53,8 +54,9 @@ function PersonnesCtrl($scope,resourcePersonne, $dialog) {
 } // PersonnesCtrl
 
 
-function PersonneCtrl($scope, dialog,resourcePersonne,resourceVehicule, personne) {
+function PersonneCtrl($scope, dialog,DataSource, personne) {
 	$scope.personneCourante=personne;
+	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 	$scope.cancel= function() {

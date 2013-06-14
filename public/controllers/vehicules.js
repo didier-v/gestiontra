@@ -1,6 +1,7 @@
 /* vehiculesCtrl.js */
 
-function VehiculesCtrl($scope,resourceVehicule,$dialog) {
+function VehiculesCtrl($scope,DataSource,$dialog) {
+	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 	$scope.selectVehicule=function(vehicule) {
@@ -52,7 +53,7 @@ function VehiculesCtrl($scope,resourceVehicule,$dialog) {
 	};
 } //VehiculesCtrl
 
-function VehiculeCtrl($scope, dialog,resourceVehicule, vehicule) {
+function VehiculeCtrl($scope, dialog, vehicule) {
 	$scope.vehiculeCourant=vehicule;
 
 	$scope.cancel= function() {
