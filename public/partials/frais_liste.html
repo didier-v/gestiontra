@@ -1,0 +1,44 @@
+<div ng-controller="FraisListeCtrl">
+<button ng-click="add()" ><i class="icon-plus"></i></button>
+<button ng-click="" ></button>
+<button ng-click="" ></button>
+
+<table class="table table-hover " >
+	<thead>
+		<th>&nbsp;</th>
+		<th>Date</th>
+		<th>Intitulé</th>
+		<th>Lieu</th>
+		<th>Km</th>
+		<th>Véhicule</th>
+		<th>Taux</th>
+		<th>Const.</th>
+		<th>Montant</th>
+		<th>Frais parking</th>
+		<th>Frais restau.</th>
+		<th>Frais divers</th>
+		<th>Total frais</th>
+		<th>TR à enlever</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="frais in listeFrais" ng-dblclick="selectFrais(frais)"
+			ng-mouseenter="over=true" ng-mouseleave="over=false">
+			<td class="span1"><span ng-show="over==true"><button ng-click="deleteFrais(frais)"><i class="icon-trash"></i></button></span></td>
+			<td >{{frais.date_frais | iso2date}}</td>
+			<td >{{frais.intitule}}</td>
+			<td >{{frais.lieu}}</td>
+			<td >{{frais.kilometres}}</td>
+			<td >{{frais.vehicule}}</td>
+			<td >{{frais.taux | frnumber}}</td>
+			<td >{{frais.constante}}</td>
+			<td >{{frais.montant | frnumber:2}}</td>
+			<td >{{frais.frais_parking | frnumber:2}}</td>
+			<td >{{frais.frais_restauration | frnumber:2}}</td>
+			<td >{{frais.frais_divers | frnumber:2}}</td>
+			<td >{{frais.total_frais | frnumber:2}}</td>
+			<td >{{frais.tr_a_enlever}}</td>
+
+		</tr>
+	</tbody>
+</table>
+</div>

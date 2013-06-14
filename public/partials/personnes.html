@@ -1,0 +1,19 @@
+<div ng-controller="PersonnesCtrl">
+<button ng-click=add() ><i class="icon-plus"></i></button>
+<table class="table table-hover " >
+	<thead>
+		<th>&nbsp;</th>
+		<th>Prénom</th>
+		<th>Nom</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="personne in personnes" ng-dblclick="selectPersonne(personne)"
+			ng-mouseenter="over=true" ng-mouseleave="over=false">
+			<td class="span1"><span ng-show="over==true"><button ng-click="deletePersonne(personne)"><i class="icon-trash"></i></button></span></td>
+			<td >{{personne.prenom}}</td>
+			<td >{{personne.nom}}</td>
+
+		</tr>
+	</tbody>
+</table>
+</div>

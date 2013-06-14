@@ -1,0 +1,24 @@
+<div class="modal-header">
+Personne
+</div>
+<div class="modal-body">
+<form novalidate>
+<div class="container-fluid">
+<div class="row-fluid">
+	<div class="span3">Nom</div><div class="span9"><input type="text" ng-model="personneCourante.nom"></div>
+</div>
+<div class="row-fluid">
+	<div class="span3">Prenom</div><div class="span9"><input type="text" ng-model="personneCourante.prenom"></div>
+</div>
+<div class="row-fluid">
+	<div class="span3">Véhicule</div><div class="span9"><select ng-model="personneCourante.id_vehicule"
+					ng-options="v.id as (v.type_vehicule+' '+v.puissance) for v in vehicules">
+				</select></div>
+</div>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+    <button ng-click="cancel()">Cancel</button>
+    <button ng-click="save()">Save</button>
+</div>

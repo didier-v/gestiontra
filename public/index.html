@@ -1,0 +1,61 @@
+<!doctype html>
+<html ng-app="gestiontr">
+  <head>
+      <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+
+  </head>
+  <body ng-controller="MenuController">
+<div class="navbar" >
+  <div class="navbar-inner">
+    <a class="brand" href="/">Arkad</a>
+    <ul class="nav">
+      <li class="dropdown">
+         <a href="#" class="dropdown-toggle"  data-toggle="dropdown">Paramètres <b class="caret"></b> </a>  
+        <ul class="dropdown-menu" role="menu" >
+      <li><a ng-click='mainView="partials/personnes.html"' >Personnes</a></li>
+      <li><a ng-click='mainView="partials/vehicules.html"'>Véhicules</a></li>
+      <li><a ng-click='mainView="partials/calendrier_liste.html"'>Calendrier</a></li>
+        </ul>
+      </li>
+      <li class="divider-vertical"></li>
+      <li><a ng-click='mainView="partials/conges.html"' >Congés</a></li>
+      <li><a ng-click='mainView="partials/frais_liste.html"' >Frais</a></li>
+      <li class="divider-vertical"></li>
+      <li class="dropdown">
+         <a href="#" class="dropdown-toggle"  data-toggle="dropdown">  
+          {{personneCourante.prenom+" "+personneCourante.nom}}  
+          <b class="caret"></b>  
+        </a>  
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li ng-repeat="personne in listePersonnes"><a tabindex="-1" ng-click="setPersonneCourante(personne)">{{personne.prenom+" "+personne.nom}}</a></li>
+        </ul>
+      </li>
+      <li class="dropdown">
+         <a href="#" class="dropdown-toggle"  data-toggle="dropdown">  
+          {{annee}}  
+          <b class="caret"></b>  
+        </a>  
+        <ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+          <li ng-repeat="annee in listeAnnees"><a tabindex="-1" ng-click="setAnnee(annee)">{{annee}}</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  
+</div>
+    <div ng-include src="mainView">
+</div>
+  
+<script src="lib/angular.js"></script>
+    <script src="lib/angular-resource.js"></script>
+    <script src="lib/ui-bootstrap-tpls-0.4.0-SNAPSHOT.js"></script>
+    <script src="lib/underscore-min.js"></script>
+    <script src="controllers/personnes.js"></script>
+    <script src="controllers/vehicules.js"></script>
+    <script src="controllers/calendrier.js"></script>
+    <script src="controllers/conges.js"></script>
+    <script src="controllers/frais.js"></script>
+    <script src="controllers/menu.js"></script>
+  <script src="app.js"></script>
+  </body>
+</html>

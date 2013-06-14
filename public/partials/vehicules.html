@@ -1,0 +1,36 @@
+<div ng-controller="VehiculesCtrl">
+<button ng-click=add() ><i class="icon-plus"></i></button>
+<table class="table table-hover " >
+	<thead>
+		<th colspan="3">&nbsp;</th>
+		<th colspan="2"> < 5000 km</th>
+		<th colspan="2">de 5000 à 20000 km</th>
+		<th colspan="2"> > 5000 km</th>
+		
+	</thead>
+	<thead>
+		<th>&nbsp;</th>
+		<th>Type</th>
+		<th>Puissance</th>
+		<th>taux</th>
+		<th>constante</th>
+		<th>taux</th>
+		<th>constante</th>
+		<th>taux</th>
+		<th>constante</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="vehicule in vehicules" ng-dblclick="selectVehicule(vehicule)"
+		ng-mouseenter="over=true" ng-mouseleave="over=false">
+			<td class="span1"><span ng-show="over==true"><button ng-click="deleteVehicule(vehicule)"><i class="icon-trash"></i></button></span></td>
+			<td >{{vehicule.type_vehicule}}</td>
+			<td >{{vehicule.puissance}}</td>
+			<td >{{vehicule.taux0 | frnumber }}</td>
+			<td >{{vehicule.constante0 | frnumber}}</td>
+			<td >{{vehicule.taux1 | frnumber}}</td>
+			<td >{{vehicule.constante1 | frnumber}}</td>
+			<td >{{vehicule.taux2 | frnumber}}</td>
+			<td >{{vehicule.constante2 | frnumber}}</td>
+		</tr>
+	</tbody>
+</table>

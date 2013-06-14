@@ -1,0 +1,11 @@
+.DS_Store
+*.komodoproject
+*.komodotools
+*.data
+app.js
+data
+logmongodb.txt
+mongodb*
+node*
+package.json
+server

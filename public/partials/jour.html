@@ -1,0 +1,24 @@
+<div class="modal-header">
+Jour
+</div>
+<div class="modal-body">
+<form novalidate>
+<div class="container-fluid">
+<div class="row-fluid">
+	<div class="span3">Jour</div><div class="span9"><input type="text" ng-model="jourCourant.jour" >
+</div>
+</div>
+<div class="row-fluid">
+	<div class="span3">Type</div><div class="span9"><select name="type_jour" ng-model="jourCourant.type">
+	<option value="RTT Arkad">RTT Arkad
+	<option value="Jour férié">Jour férié
+	</select>
+	</div>
+</div>
+</div>
+</form>
+</div>
+<div class="modal-footer">
+    <button ng-click="cancel()">Cancel</button>
+    <button ng-click="save()">Save</button>
+</div>
