@@ -1,7 +1,7 @@
 /* app.js */
 
-var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap']);
-
+var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap','gestiontrfilters']);
+/*
 myModule.filter("frnumber",function() {
 	return function(input, number) {
 //		console.log(input);
@@ -47,7 +47,7 @@ myModule.filter("date2iso", function() {
 		return input;
 	};
 });
-
+*/
 
 myModule.config(function($httpProvider) {
 	var myReplacer = function(key,value) {
