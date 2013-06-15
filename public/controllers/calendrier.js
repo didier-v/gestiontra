@@ -1,6 +1,6 @@
 /* calendrierCtrl.js */
 /*global angular, console, _, confirm */
-function CalendrierCtrl($scope,DataSource, $dialog,Selection) {
+function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 	var	critere = {	};
 	$scope.annee= Selection.annee();
 	critere.jour= { '$regex': $scope.annee+'.*'};
@@ -13,20 +13,8 @@ function CalendrierCtrl($scope,DataSource, $dialog,Selection) {
 		$scope.calendrier=resourceCalendrier.get(critere);
 	});
 	
-	$scope.selectRecord=function(jour) {
-		var d=$dialog.dialog({templateUrl:"partials/jour.html",
-							controller: "JourCtrl",
-							resolve: {jour: function(){ return angular.copy(jour); }}
-							});
-		
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$save(function(){
-					angular.extend(jour,result);
-				});
-			}
-		});
-	};
+	$scope.modifyRecord = ListController.modifyRecord("JourCtrl","partials/jour.html");
+
 	
 	$scope.remove=function(jour) {
 		var i=_.indexOf($scope.calendrier ,jour);
@@ -62,8 +50,8 @@ function CalendrierCtrl($scope,DataSource, $dialog,Selection) {
 } // CalendrierCtrl
 
 
-function JourCtrl($scope, dialog, jour,iso2dateFilter,date2isoFilter) {
-	$scope.jourCourant=jour;
+function JourCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
+	$scope.jourCourant=record;
 	if($scope.jourCourant.jour) {
 		$scope.jourCourant.jour=iso2dateFilter($scope.jourCourant.jour);	
 	}

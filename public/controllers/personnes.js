@@ -1,25 +1,14 @@
 /* personnes.js */
 /*global angular, console, _ */
-function PersonnesCtrl($scope,DataSource, $dialog) {
+function PersonnesCtrl($scope,DataSource, ListController,$dialog) {
 	// var personnesDataSource = resourcePersonne.get();
 	var resourcePersonne = DataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
-	$scope.selectRecord=function(personne) {
-		var d=$dialog.dialog({templateUrl:"partials/personne.html",
-							controller: "PersonneCtrl",
-							resolve: {personne: function(){ return angular.copy(personne); }}
-							});
+
+
+	$scope.modifyRecord = ListController.modifyRecord("PersonneCtrl","partials/personne.html");
+
 		
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$save(function(){
-					angular.extend(personne,result);
-				});
-				
-			}
-		});
-	};
-	
 	$scope.deletePersonne=function(personne) {
 		var i=_.indexOf($scope.personnes ,personne);
 		if(i>0) {
@@ -54,8 +43,8 @@ function PersonnesCtrl($scope,DataSource, $dialog) {
 } // PersonnesCtrl
 
 
-function PersonneCtrl($scope, dialog,DataSource, personne) {
-	$scope.personneCourante=personne;
+function PersonneCtrl($scope, dialog,DataSource, record) {
+	$scope.personneCourante=record;
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 

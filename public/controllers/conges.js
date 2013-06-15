@@ -1,7 +1,7 @@
 /* conges.js */
 /*global angular, console, _ , confirm */
 
-function CongesCtrl($scope,DataSource, Selection,$dialog) {
+function CongesCtrl($scope,DataSource, Selection,ListController,$dialog) {
 	var resourceConge= DataSource({nature:"conges"});;
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
@@ -36,20 +36,8 @@ function CongesCtrl($scope,DataSource, Selection,$dialog) {
 
 	$scope.fetchConges();
 	
-	$scope.selectRecord=function(conge) {
-		var d=$dialog.dialog({templateUrl:"partials/conge.html",
-							controller: "CongeCtrl",
-							resolve: {conge: function(){ return angular.copy(conge); }}
-							});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$save(function(){
-					angular.extend(conge,result);
-				});
-			}
-		});
-	};
-	
+	$scope.modifyRecord = ListController.modifyRecord("CongeCtrl","partials/conge.html");
+
 	$scope.deleteConge=function(conge) {
 		var i=_.indexOf($scope.conges,conge);
 		if(i>0) {
@@ -84,7 +72,7 @@ function CongesCtrl($scope,DataSource, Selection,$dialog) {
 
 } // CongesCtrl
 
-function CongeCtrl($scope, dialog, conge,iso2dateFilter,date2isoFilter) {
+function CongeCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
 	var d=new Date();
 	$scope.typesConges = [
 			{value:"Congé "+(d.getFullYear()-1)},
@@ -95,7 +83,7 @@ function CongeCtrl($scope, dialog, conge,iso2dateFilter,date2isoFilter) {
 
 
 
-	$scope.congeCourant=conge;
+	$scope.congeCourant=record;
 	if($scope.congeCourant.date_debut) {
 		$scope.congeCourant.date_debut=iso2dateFilter($scope.congeCourant.date_debut);
 	}

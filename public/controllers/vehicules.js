@@ -1,25 +1,10 @@
 /* vehiculesCtrl.js */
 
-function VehiculesCtrl($scope,DataSource,$dialog) {
+function VehiculesCtrl($scope,DataSource,ListController,$dialog) {
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
-	$scope.selectRecord=function(vehicule) {
-		var d=$dialog.dialog({templateUrl:"partials/vehicule.html",
-							controller: "VehiculeCtrl",
-							resolve: {vehicule: function(){ return angular.copy(vehicule); }}
-							});
-		
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$save(function(){
-					angular.extend(vehicule,result);
-				});
-				
-				console.log(result);
-			}
-		});
-	};
+	$scope.modifyRecord = ListController.modifyRecord("VehiculeCtrl","partials/vehicule.html");
 
 	$scope.deleteVehicule=function(vehicule) {
 		var i=_.indexOf($scope.vehicules ,vehicule);
@@ -53,8 +38,8 @@ function VehiculesCtrl($scope,DataSource,$dialog) {
 	};
 } //VehiculesCtrl
 
-function VehiculeCtrl($scope, dialog, vehicule) {
-	$scope.vehiculeCourant=vehicule;
+function VehiculeCtrl($scope, dialog, record) {
+	$scope.vehiculeCourant=record;
 
 	$scope.cancel= function() {
 		dialog.close('cancel');

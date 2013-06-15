@@ -1,7 +1,7 @@
 /* frais.js */
 /*global angular, console, _ , confirm */
 
-function FraisListeCtrl($scope,DataSource,Selection,$dialog) {
+function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 	var resourceFrais = DataSource({nature:"frais"});
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
@@ -36,19 +36,7 @@ function FraisListeCtrl($scope,DataSource,Selection,$dialog) {
 
 	$scope.fetchFrais();
 	
-	$scope.selectRecord=function(frais) {
-		var d=$dialog.dialog({templateUrl:"partials/frais.html",
-							controller: "FraisCtrl",
-							resolve: {frais: function(){ return angular.copy(frais); }}
-							});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$save(function(){
-					angular.extend(frais,result);
-				});
-			}
-		});
-	};
+	$scope.modifyRecord = ListController.modifyRecord("FraisCtrl","partials/frais.html");
 	
 	$scope.deleteFrais=function(frais) {
 		var i=_.indexOf($scope.listeFrais,frais);

@@ -1,53 +1,6 @@
 /* app.js */
 
 var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap','gestiontrfilters']);
-/*
-myModule.filter("frnumber",function() {
-	return function(input, number) {
-//		console.log(input);
-//		console.log(number);
-	var i=input;
-	if(number) {
-		i=i.toFixed(number);
-	}
-	return i.toString().replace(".",",");
-		
-	};
-
-});
-
-myModule.filter("iso2date", function() {
-	return function(input) {
-	var dateregex= /^([0-9]+)-([0-9]+)-([0-9]+)/;
-		var t=input.match(dateregex);
-		
-		if(t) {
-			return t[3]+"/"+t[2]+"/"+t[1];
-		}
-		return input;
-	};
-});
-
-myModule.filter("date2iso", function() {
-	return function(input) {
-		var dateregex=/^([0-9]+)\/([0-9]+)\/([0-9]+)/;
-		var t=input.match(dateregex);
-		if(t) {
-			if(t[3].length==2) {
-				t[3]="20"+t[3];	
-			}
-			if(t[2].length==1) {
-				t[2]="0"+t[2];
-			}
-			if(t[1].length==1) {
-				t[1]="0"+t[1];
-			}
-			return t[3]+"-"+t[2]+"-"+t[1];
-		}
-		return input;
-	};
-});
-*/
 
 myModule.config(function($httpProvider) {
 	var myReplacer = function(key,value) {
@@ -76,6 +29,7 @@ myModule.config(function($routeProvider,$locationProvider) {
 });
 */
 
+/* Service Selection : valeurs globales modifiées dans le menu, utilisées par les interfaces */
 myModule.service('Selection', function() {
 	var gAnnee=0;
 	var personne={};
@@ -94,6 +48,27 @@ myModule.service('Selection', function() {
 
 });
 
+
+/* Service ListController : fonctions génériques pour les controllers */
+myModule.service('ListController', function($dialog) {
+	this.modifyRecord=function(controller,templateUrl) {
+		return function(record) {
+			var d=$dialog.dialog({templateUrl:templateUrl,
+							controller: controller,
+							resolve: {record: function(){ return angular.copy(record); }}
+							});
+	
+			d.open().then(function(result){
+				if(angular.isObject(result)) {
+					result.$save(function(){
+						angular.extend(record,result);
+				});
+			}
+		});
+		}
+	}
+
+});
 
 /******* resources **************/
 myModule.factory ('DataSource', function($resource) {
