@@ -1,11 +1,21 @@
 /* vehiculesCtrl.js */
 
-function VehiculesCtrl($scope,DataSource,ListController,$dialog) {
+function VehiculesCtrl($scope,DataSource,ListController) {
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 	$scope.modifyRecord = ListController.modifyRecord("VehiculeCtrl","partials/vehicule.html");
 
+	$scope.addRecord = ListController.addRecord({
+		controller : "VehiculeCtrl",
+		templateUrl : "partials/vehicule.html",
+		resource : resourceVehicule,
+		defaultValues : {nature: "vehicule"},
+		onValidation: function(result) {
+			$scope.vehicules.push(result);
+		}
+	});
+	
 	$scope.deleteVehicule=function(vehicule) {
 		var i=_.indexOf($scope.vehicules ,vehicule);
 		if(i>0) {
@@ -17,25 +27,6 @@ function VehiculesCtrl($scope,DataSource,ListController,$dialog) {
 		}
 	};
 
-	$scope.add = function() {
-		var d=$dialog.dialog({templateUrl:"partials/vehicule.html",
-							controller: "VehiculeCtrl",
-							resolve: {vehicule: function(){ 
-								var newVehicule= new resourceVehicule({});
-								newVehicule.nature="vehicule"; // ne pas oublier la nature
-								return newVehicule; }
-							}
-		});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$add(function(d){
-					$scope.vehicules.push(d);
-			});
-				
-			}
-		});	
-
-	};
 } //VehiculesCtrl
 
 function VehiculeCtrl($scope, dialog, record) {

@@ -66,7 +66,38 @@ myModule.service('ListController', function($dialog) {
 			}
 		});
 		}
-	}
+	}; // modifyRecord
+	
+	this.addRecord=function(params) {
+		var controller = params.controller;
+		var templateUrl = params.templateUrl;
+		var resource = params.resource;
+		var defaultValues = {};
+		if(params.defaultValues) {
+			defaultValues = params.defaultValues;
+		}
+		var onValidation = params.onValidation;
+		return function() {
+			var d=$dialog.dialog({templateUrl:templateUrl,
+								controller: controller,
+								resolve: {record: function(){
+									var newRecord= new resource({});
+									angular.extend(newRecord,defaultValues);
+									return newRecord;
+								}}
+			});
+			d.open().then(function(result){
+				if(angular.isObject(result)) {
+					result.$add(function(d){
+						onValidation(d);
+//						$scope.calendrier.push(d);
+				});
+				
+				}
+			});
+			
+		};
+	}; //addRecord
 
 });
 

@@ -1,6 +1,6 @@
 /* personnes.js */
 /*global angular, console, _ */
-function PersonnesCtrl($scope,DataSource, ListController,$dialog) {
+function PersonnesCtrl($scope,DataSource, ListController) {
 	// var personnesDataSource = resourcePersonne.get();
 	var resourcePersonne = DataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
@@ -8,6 +8,15 @@ function PersonnesCtrl($scope,DataSource, ListController,$dialog) {
 
 	$scope.modifyRecord = ListController.modifyRecord("PersonneCtrl","partials/personne.html");
 
+	$scope.addRecord = ListController.addRecord({
+		controller : "PersonneCtrl",
+		templateUrl : "partials/personne.html",
+		resource : resourcePersonne,
+		defaultValues : {nature: "personne"},
+		onValidation: function(result) {
+			$scope.personnes.push(result);
+		}
+	});
 		
 	$scope.deletePersonne=function(personne) {
 		var i=_.indexOf($scope.personnes ,personne);
@@ -19,26 +28,6 @@ function PersonnesCtrl($scope,DataSource, ListController,$dialog) {
 		}
 		}
 	}
-
-	$scope.add = function() {
-		var d=$dialog.dialog({templateUrl:"partials/personne.html",
-							controller: "PersonneCtrl",
-							resolve: {personne: function(){ 
-								var newPersonne= new resourcePersonne({});
-								newPersonne.nature="personne"; // ne pas oublier la nature
-								return newPersonne; }
-							}
-		});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$add(function(d){
-					$scope.personnes.push(d);
-			});
-				
-			}
-		});	
-
-	};
 
 } // PersonnesCtrl
 

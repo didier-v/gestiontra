@@ -16,7 +16,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 
 	});
 	
-	
+//fetch		
 	$scope.fetchFrais=function() {
 		var critere={};
 		if($scope.personne) {
@@ -30,13 +30,23 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 		$scope.listeFrais = resourceFrais.get(critere);
 	};
 	
-	//initialisation
+//initialisation
 	$scope.annee = Selection.annee();
 	$scope.personne=Selection.personne();
-
 	$scope.fetchFrais();
-	
+
+//ajout/modif/suppression	
 	$scope.modifyRecord = ListController.modifyRecord("FraisCtrl","partials/frais.html");
+
+	$scope.addRecord = ListController.addRecord({
+		controller : "FraisCtrl",
+		templateUrl : "partials/frais.html",
+		resource : resourceFrais,
+		defaultValues : {nature: "frais" },
+		onValidation: function(result) {
+			$scope.listeFrais.push(result);
+		}
+	});
 	
 	$scope.deleteFrais=function(frais) {
 		var i=_.indexOf($scope.listeFrais,frais);
@@ -48,7 +58,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 		}
 		}
 	};
-	
+	/*
 	$scope.add = function() {
 		var d=$dialog.dialog({templateUrl:"partials/frais.html",
 							controller: "FraisCtrl",
@@ -69,5 +79,5 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 		});
 
 	};
-
+*/
 } // FraisCtrl

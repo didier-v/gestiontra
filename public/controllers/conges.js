@@ -1,7 +1,7 @@
 /* conges.js */
 /*global angular, console, _ , confirm */
 
-function CongesCtrl($scope,DataSource, Selection,ListController,$dialog) {
+function CongesCtrl($scope,DataSource, Selection,ListController) {
 	var resourceConge= DataSource({nature:"conges"});;
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
@@ -38,6 +38,16 @@ function CongesCtrl($scope,DataSource, Selection,ListController,$dialog) {
 	
 	$scope.modifyRecord = ListController.modifyRecord("CongeCtrl","partials/conge.html");
 
+	$scope.addRecord = ListController.addRecord({
+		controller : "CongeCtrl",
+		templateUrl : "partials/conge.html",
+		resource : resourceConge,
+		defaultValues : {nature: "conges" },
+		onValidation: function(result) {
+			$scope.conges.push(result);
+		}
+	});
+
 	$scope.deleteConge=function(conge) {
 		var i=_.indexOf($scope.conges,conge);
 		if(i>0) {
@@ -48,31 +58,10 @@ function CongesCtrl($scope,DataSource, Selection,ListController,$dialog) {
 		}
 		}
 	};
-	
-	$scope.add = function() {
-		var d=$dialog.dialog({templateUrl:"partials/conge.html",
-							controller: "CongeCtrl",
-							resolve: {conge: function(){
-								var newConge= new resourceConge({});
-								newConge.nature="conges"; // ne pas oublier la nature
-								newConge.id_personne = $scope.personne.id;
-								return newConge; }
-							}
-		});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$add(function(d){
-					$scope.conges.push(d);
-			});
-				
-			}
-		});
-
-	};
 
 } // CongesCtrl
 
-function CongeCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
+function CongeCtrl($scope, dialog, Selection, record,iso2dateFilter,date2isoFilter) {
 	var d=new Date();
 	$scope.typesConges = [
 			{value:"Congé "+(d.getFullYear()-1)},
@@ -81,8 +70,6 @@ function CongeCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
 			{value:"RTT "+d.getFullYear()},
 			{value:"Maladie"}];
 
-
-
 	$scope.congeCourant=record;
 	if($scope.congeCourant.date_debut) {
 		$scope.congeCourant.date_debut=iso2dateFilter($scope.congeCourant.date_debut);
@@ -90,7 +77,9 @@ function CongeCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
 	if($scope.congeCourant.date_fin) {
 		$scope.congeCourant.date_fin=iso2dateFilter($scope.congeCourant.date_fin);
 	}
-
+	$scope.congeCourant.id_personne = Selection.personne().id;
+	
+		
 	$scope.cancel= function() {
 		dialog.close('cancel');
 	};

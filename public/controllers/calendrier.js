@@ -15,6 +15,15 @@ function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 	
 	$scope.modifyRecord = ListController.modifyRecord("JourCtrl","partials/jour.html");
 
+	$scope.addRecord = ListController.addRecord({
+		controller : "JourCtrl",
+		templateUrl : "partials/jour.html",
+		resource : resourceCalendrier,
+		defaultValues : {nature: "jour_ferie"},
+		onValidation: function(result) {
+			$scope.calendrier.push(result);
+		}
+	});
 	
 	$scope.remove=function(jour) {
 		var i=_.indexOf($scope.calendrier ,jour);
@@ -26,27 +35,7 @@ function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 		}
 		}
 	};
-
-	$scope.add = function() {
-		var d=$dialog.dialog({templateUrl:"partials/jour.html",
-							controller: "JourCtrl",
-							resolve: {jour: function(){
-								var newJour= new resourceCalendrier({});
-								newJour.nature="jour_ferie"; // ne pas oublier la nature
-								return newJour; }
-							}
-		});
-		d.open().then(function(result){
-			if(angular.isObject(result)) {
-				result.$add(function(d){
-					$scope.calendrier.push(d);
-			});
-				
-			}
-		});
-
-	};
-
+	
 } // CalendrierCtrl
 
 
