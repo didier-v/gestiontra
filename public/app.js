@@ -54,9 +54,16 @@ myModule.service('ListController', function($dialog) {
 	this.modifyRecord=function(params) {
 		var controller = params.controller;
 		var templateUrl = params.templateUrl;
+		var dialogClass  = "modal";
+		if(params.dialogClass) {
+			dialogClass = params.dialogClass;
+		}
+
 		return function(record) {
 			var d=$dialog.dialog({templateUrl:templateUrl,
 							controller: controller,
+							dialogClass: dialogClass,
+							backdropClick: false,
 							resolve: {record: function(){ return angular.copy(record); }}
 							});
 	
@@ -78,10 +85,16 @@ myModule.service('ListController', function($dialog) {
 		if(params.defaultValues) {
 			defaultValues = params.defaultValues;
 		}
+		var dialogClass  = "modal";
+		if(params.dialogClass) {
+			dialogClass = params.dialogClass;
+		}
 		var onValidation = params.onValidation;
 		return function() {
 			var d=$dialog.dialog({templateUrl:templateUrl,
 								controller: controller,
+								dialogClass: dialogClass,
+								backdropClick: false,
 								resolve: {record: function(){
 									var newRecord= new Resource({});
 									angular.extend(newRecord,defaultValues);
