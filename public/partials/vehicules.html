@@ -1,8 +1,8 @@
 <div ng-controller="VehiculesCtrl">
-<button ng-click=addRecord() ><i class="icon-plus"></i></button>
-<table class="table table-hover " >
+<h3 class="text-center">Véhicules</h3>
+<table class="table table-hover">
 	<thead>
-		<th colspan="3">&nbsp;</th>
+		<th colspan="3"><button class="btn" ng-click=addRecord() ><i class="icon-plus"></i></button>&nbsp;</th>
 		<th colspan="2"> < 5000 km</th>
 		<th colspan="2">de 5000 à 20000 km</th>
 		<th colspan="2"> > 5000 km</th>
@@ -22,7 +22,7 @@
 	<tbody>
 		<tr ng-repeat="vehicule in vehicules" ng-dblclick="modifyRecord(vehicule)"
 		ng-mouseenter="over=true" ng-mouseleave="over=false">
-			<td class="span1"><span ng-show="over==true"><button ng-click="deleteVehicule(vehicule)"><i class="icon-trash"></i></button></span></td>
+			<td class="span1"><span ng-show="over==true"><button class="btn" ng-click="deleteVehicule(vehicule)"><i class="icon-trash"></i></button></span></td>
 			<td >{{vehicule.type_vehicule}}</td>
 			<td >{{vehicule.puissance}}</td>
 			<td >{{vehicule.taux0 | frnumber }}</td>

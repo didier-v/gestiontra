@@ -1,15 +1,15 @@
 <div ng-controller="PersonnesCtrl">
-<button ng-click=addRecord() ><i class="icon-plus"></i></button>
+<h3 class="text-center" class="text-center">Personnes</h3>
 <table class="table table-hover " >
 	<thead>
-		<th>&nbsp;</th>
+		<th><button class="btn" ng-click=addRecord() ><i class="icon-plus"></i></button>&nbsp;</th>
 		<th>Prénom</th>
 		<th>Nom</th>
 	</thead>
 	<tbody>
 		<tr ng-repeat="personne in personnes" ng-dblclick="modifyRecord(personne)"
 			ng-mouseenter="over=true" ng-mouseleave="over=false">
-			<td class="span1"><span ng-show="over==true"><button ng-click="deletePersonne(personne)"><i class="icon-trash"></i></button></span></td>
+			<td class="span1"><span ng-show="over==true"><button class="btn" ng-click="deletePersonne(personne)"><i class="icon-trash"></i></button></span></td>
 			<td >{{personne.prenom}}</td>
 			<td >{{personne.nom}}</td>
 
