@@ -1,10 +1,14 @@
 /* vehiculesCtrl.js */
+/*global _,confirm */
 
 function VehiculesCtrl($scope,DataSource,ListController) {
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
-	$scope.modifyRecord = ListController.modifyRecord("VehiculeCtrl","partials/vehicule.html");
+	$scope.modifyRecord = ListController.modifyRecord({
+		controller : "VehiculeCtrl",
+		templateUrl : "partials/vehicule.html"
+	});
 
 	$scope.addRecord = ListController.addRecord({
 		controller : "VehiculeCtrl",

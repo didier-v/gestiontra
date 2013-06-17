@@ -1,12 +1,15 @@
 /* personnes.js */
-/*global angular, console, _ */
+/*global angular, console, _ ,confirm*/
 function PersonnesCtrl($scope,DataSource, ListController) {
 	// var personnesDataSource = resourcePersonne.get();
 	var resourcePersonne = DataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
 
 
-	$scope.modifyRecord = ListController.modifyRecord("PersonneCtrl","partials/personne.html");
+	$scope.modifyRecord = ListController.modifyRecord({
+		controller : "PersonneCtrl",
+		templateUrl : "partials/personne.html"
+	});
 
 	$scope.addRecord = ListController.addRecord({
 		controller : "PersonneCtrl",
@@ -27,7 +30,7 @@ function PersonnesCtrl($scope,DataSource, ListController) {
 			});
 		}
 		}
-	}
+	};
 
 } // PersonnesCtrl
 

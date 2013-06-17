@@ -16,7 +16,6 @@ function CongesCtrl($scope,DataSource, Selection,ListController) {
 
 	});
 	
-	
 	$scope.fetchConges=function() {
 		var critere={};
 		if($scope.personne) {
@@ -36,7 +35,10 @@ function CongesCtrl($scope,DataSource, Selection,ListController) {
 
 	$scope.fetchConges();
 	
-	$scope.modifyRecord = ListController.modifyRecord("CongeCtrl","partials/conge.html");
+	$scope.modifyRecord = ListController.modifyRecord({
+		controller : "CongeCtrl",
+		templateUrl : "partials/conge.html"
+	});
 
 	$scope.addRecord = ListController.addRecord({
 		controller : "CongeCtrl",

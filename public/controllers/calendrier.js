@@ -13,8 +13,11 @@ function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 		$scope.calendrier=resourceCalendrier.get(critere);
 	});
 	
-	$scope.modifyRecord = ListController.modifyRecord("JourCtrl","partials/jour.html");
-
+	$scope.modifyRecord = ListController.modifyRecord({
+		controller : "JourCtrl",
+		templateUrl : "partials/jour.html"
+	});
+	
 	$scope.addRecord = ListController.addRecord({
 		controller : "JourCtrl",
 		templateUrl : "partials/jour.html",
@@ -42,7 +45,7 @@ function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 function JourCtrl($scope, dialog, record,iso2dateFilter,date2isoFilter) {
 	$scope.jourCourant=record;
 	if($scope.jourCourant.jour) {
-		$scope.jourCourant.jour=iso2dateFilter($scope.jourCourant.jour);	
+		$scope.jourCourant.jour=iso2dateFilter($scope.jourCourant.jour);
 	}
 	
 	$scope.cancel= function() {

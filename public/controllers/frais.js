@@ -36,7 +36,10 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 	$scope.fetchFrais();
 
 //ajout/modif/suppression	
-	$scope.modifyRecord = ListController.modifyRecord("FraisCtrl","partials/frais.html");
+	$scope.modifyRecord = ListController.modifyRecord({
+		controller : "FraisCtrl",
+		templateUrl : "partials/frais.html"
+	});
 
 	$scope.addRecord = ListController.addRecord({
 		controller : "FraisCtrl",

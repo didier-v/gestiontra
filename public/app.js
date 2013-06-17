@@ -1,4 +1,5 @@
 /* app.js */
+/*global angular */
 
 var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap','gestiontrfilters']);
 
@@ -16,7 +17,7 @@ myModule.config(function($httpProvider) {
 		var j= JSON.stringify(data,myReplacer,'');
 		return j;
 		
-	}
+	};
 })
 /*
 myModule.config(function($routeProvider,$locationProvider) {
@@ -45,13 +46,14 @@ myModule.service('Selection', function() {
 	this.setPersonne = function(nouvellePersonne) {
 		personne=nouvellePersonne;
 	};
-
 });
 
 
 /* Service ListController : fonctions génériques pour les controllers */
 myModule.service('ListController', function($dialog) {
-	this.modifyRecord=function(controller,templateUrl) {
+	this.modifyRecord=function(params) {
+		var controller = params.controller;
+		var templateUrl = params.templateUrl;
 		return function(record) {
 			var d=$dialog.dialog({templateUrl:templateUrl,
 							controller: controller,
@@ -65,13 +67,13 @@ myModule.service('ListController', function($dialog) {
 				});
 			}
 		});
-		}
+		};
 	}; // modifyRecord
 	
 	this.addRecord=function(params) {
 		var controller = params.controller;
 		var templateUrl = params.templateUrl;
-		var resource = params.resource;
+		var Resource = params.resource;
 		var defaultValues = {};
 		if(params.defaultValues) {
 			defaultValues = params.defaultValues;
@@ -81,7 +83,7 @@ myModule.service('ListController', function($dialog) {
 			var d=$dialog.dialog({templateUrl:templateUrl,
 								controller: controller,
 								resolve: {record: function(){
-									var newRecord= new resource({});
+									var newRecord= new Resource({});
 									angular.extend(newRecord,defaultValues);
 									return newRecord;
 								}}
@@ -90,7 +92,6 @@ myModule.service('ListController', function($dialog) {
 				if(angular.isObject(result)) {
 					result.$add(function(d){
 						onValidation(d);
-//						$scope.calendrier.push(d);
 				});
 				
 				}
