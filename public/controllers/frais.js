@@ -83,4 +83,19 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 
 	};
 */
-} // FraisCtrl
+} // FraisListeCtrl
+
+function FraisCtrl($scope, dialog, Selection, record,iso2dateFilter,date2isoFilter) {
+	$scope.fraisCourant=record;
+	$scope.fraisCourant.id_personne = Selection.personne().id;
+
+	$scope.cancel= function() {
+		dialog.close('cancel');
+	};
+	
+	$scope.save = function() {
+		dialog.close($scope.fraisCourant);
+
+	};
+	
+} //FraisCtrl
