@@ -38,11 +38,13 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 //ajout/modif/suppression	
 	$scope.modifyRecord = ListController.modifyRecord({
 		controller : "FraisCtrl",
+		dialogClass : "modal-frais",
 		templateUrl : "partials/frais.html"
 	});
 
 	$scope.addRecord = ListController.addRecord({
 		controller : "FraisCtrl",
+		dialogClass : "modal-frais",
 		templateUrl : "partials/frais.html",
 		resource : resourceFrais,
 		defaultValues : {nature: "frais" },

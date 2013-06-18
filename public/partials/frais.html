@@ -1,11 +1,34 @@
 <div class="modal-header">
 Frais
 </div>
-<div class="modal-body">
+<div class="modal-body modal-body-frais">
 <form novalidate>
-<div class="container-fluid">
+<div class="container" >
+<div class="row">
+	<div class="span1">Date</div><div class="span3"><input class="span2" type="text" ng-model="fraisCourant.date_frais"></div>
+	<div class="span1">Intitulé</div><div class="span7"><input class="span7" type="text" ng-model="fraisCourant.intitule"></div>
+</div>
 <div class="row-fluid">
-	<div class="span3">Du</div><div class="span9"><input type="text" ng-model="fraisCourant.date_frais"></div>
+	<div class="span1">Lieu</div><div class="span3"><input type="text" ng-model="fraisCourant.lieu"></div>
+	<div class="span1	">Km</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.kilometres"></div>
+</div>
+<div class="row-fluid">
+	<div class="span1">Véhicule</div><div class="span3"><select ng-model="fraisCourant.id_vehicule"
+					ng-options="v.id as (v.type_vehicule+' '+v.puissance) for v in vehicules">
+				</select></div>
+	<div class="span1">Taux</div><div class="span2	"><input class="span9" type="number" ng-model="fraisCourant.taux"></div>
+	<div class="span1">Constante</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.constante"></div>
+</div>
+<div class="row-fluid">
+	<div class="span1">Montant</div><div class="span9"><input type="number" ng-model="fraisCourant.montant"></div>
+</div>
+<div class="row-fluid">
+	<div class="span4">Frais parking&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_parking"></div>
+	<div class="span4">Frais restauration&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_restauration"></div>
+	<div class="span4">frais divers&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_divers"></div>
+</div>
+<div class="row-fluid">
+	<div class="span4">TR à enlever&nbsp;<input class="span6" type="number" ng-model="fraisCourant.tr_a_enlever"></div>
 </div>
 </div>
 </form>
@@ -14,3 +37,4 @@ Frais
     <button class="btn" ng-click="cancel()">Cancel</button>
     <button class="btn" ng-click="save()">Save</button>
 </div>
+
