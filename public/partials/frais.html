@@ -1,8 +1,8 @@
 <div class="modal-header">
-Frais
+Frais - {{nomPersonne}}
 </div>
 <div class="modal-body modal-body-frais">
-<form novalidate>
+<form novalidate name="fraisform">
 <div class="container" >
 <div class="row">
 	<div class="span1">Date</div><div class="span3"><input class="span2" type="text" ng-model="fraisCourant.date_frais"></div>
@@ -10,25 +10,25 @@ Frais
 </div>
 <div class="row-fluid">
 	<div class="span1">Lieu</div><div class="span3"><input type="text" ng-model="fraisCourant.lieu"></div>
-	<div class="span1	">Km</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.kilometres"></div>
+	<div class="span1">Km</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.kilometres" ng-change="updateFrais()"></div>
+	<div class="span2">TR à enlever</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.tr_a_enlever"></div>
 </div>
 <div class="row-fluid">
 	<div class="span1">Véhicule</div><div class="span3"><select ng-model="fraisCourant.id_vehicule"
-					ng-options="v.id as (v.type_vehicule+' '+v.puissance) for v in vehicules">
+					ng-options="v.id as (v.type_vehicule+' '+v.puissance) for v in vehicules"
+					ng-change="updateFrais()">
 				</select></div>
-	<div class="span1">Taux</div><div class="span2	"><input class="span9" type="number" ng-model="fraisCourant.taux"></div>
-	<div class="span1">Constante</div><div class="span2"><input class="span9" type="number" ng-model="fraisCourant.constante"></div>
+	<div class="span2">Taux : {{fraisCourant.taux | frnumber}}</div>
+	<div class="span2">Constante : {{fraisCourant.constante | frnumber}}</div>
+	<div class="span2">Montant : {{fraisCourant.montant | frnumber:2}}</div>
 </div>
 <div class="row-fluid">
-	<div class="span1">Montant</div><div class="span9"><input type="number" ng-model="fraisCourant.montant"></div>
+	<div class="span4">Frais parking&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_parking"  ng-change="updateFrais()"></div>
+	<div class="span4">Frais restauration&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_restauration"  ng-change="updateFrais()"></div>
+	<div class="span4">frais divers&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_divers"  ng-change="updateFrais()"></div>
 </div>
 <div class="row-fluid">
-	<div class="span4">Frais parking&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_parking"></div>
-	<div class="span4">Frais restauration&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_restauration"></div>
-	<div class="span4">frais divers&nbsp;<input class="span6" type="number" ng-model="fraisCourant.frais_divers"></div>
-</div>
-<div class="row-fluid">
-	<div class="span4">TR à enlever&nbsp;<input class="span6" type="number" ng-model="fraisCourant.tr_a_enlever"></div>
+	<h4>Total Frais : {{fraisCourant.total_frais | frnumber:2}}</h4>
 </div>
 </div>
 </form>
