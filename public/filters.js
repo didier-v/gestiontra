@@ -5,14 +5,15 @@ filter("frnumber",function() {
 	return function(input, number) {
 //		console.log(input);
 //		console.log(number);
-	var i=input;
-	if(number) {
-		i=i.toFixed(number);
-	}
-	return i.toString().replace(".",",");
-		
+		var i=input;
+		if((i===undefined) || (i===null)) {
+			i=0;
+		}
+		if(number) {
+			i=i.toFixed(number);
+		}
+		return i.toString().replace(".",",");
 	};
-
 }).
 filter("iso2date", function() {
 	return function(input) {
@@ -31,7 +32,7 @@ filter("date2iso", function() {
 		var t=input.match(dateregex);
 		if(t) {
 			if(t[3].length==2) {
-				t[3]="20"+t[3];	
+				t[3]="20"+t[3];
 			}
 			if(t[2].length==1) {
 				t[2]="0"+t[2];
