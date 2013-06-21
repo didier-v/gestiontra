@@ -54,6 +54,7 @@ myModule.service('ListController', function($dialog) {
 	this.modifyRecord=function(params) {
 		var controller = params.controller;
 		var templateUrl = params.templateUrl;
+		var onValidation = params.onValidation;
 		var dialogClass  = "modal";
 		if(params.dialogClass) {
 			dialogClass = params.dialogClass;
@@ -71,6 +72,9 @@ myModule.service('ListController', function($dialog) {
 				if(angular.isObject(result)) {
 					result.$save(function(){
 						angular.extend(record,result);
+						if(onValidation) {
+							onValidation(record);
+						}
 				});
 			}
 		});
@@ -104,7 +108,9 @@ myModule.service('ListController', function($dialog) {
 			d.open().then(function(result){
 				if(angular.isObject(result)) {
 					result.$add(function(d){
-						onValidation(d);
+						if(onValidation) {
+							onValidation(d);
+						}
 				});
 				
 				}
