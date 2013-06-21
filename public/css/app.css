@@ -26,3 +26,30 @@
     max-height: 600px;
 	
 }
+
+.table .numbercell {
+  text-align: right;
+}
+
+
+@media print {
+  .navbar, .btn { visibility: hidden;}
+  .table {
+	font-size:12pt;
+  }
+  .table {
+	width:90%;
+	margin:0px;padding:0px;
+  }
+  .table td {
+	border:1px solid #000000;
+	overflow:hidden;
+	white-space:nowrap;
+  }
+  .table td:first-child ,.table th:first-child{
+	display: none;
+  }
+  .info {
+	font-weight: bold: 
+  }
+}

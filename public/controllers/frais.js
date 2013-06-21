@@ -1,11 +1,12 @@
 /* frais.js */
 /*global angular, console, _ , confirm */
 
-function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
+function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$timeout) {
 // resources
 	var resourceFrais = DataSource({nature:"frais"});
 	var resourceVehicule = DataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
+
 
 // vehicule name
 	$scope.getVehiculeName = function(id_vehicule) {
@@ -13,8 +14,22 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 			var vehicule= _.findWhere($scope.vehicules,{id:id_vehicule});
 			return vehicule.type_vehicule+" "+vehicule.puissance;
 		}
-	}
-
+	};
+// totaux
+	$scope.calculerTotaux = function() {
+		var total= {
+			frais:0,divers:0,restauration:0,parking:0,montant:0,tr_a_enlever:0
+		};
+		for (var i=0;i<$scope.listeFrais.length;i++) {
+			total.frais+=$scope.listeFrais[i].total_frais;
+			total.divers+=$scope.listeFrais[i].frais_divers;
+			total.parking+=$scope.listeFrais[i].frais_parking;
+			total.restauration+=$scope.listeFrais[i].frais_restauration;
+			total.montant+=$scope.listeFrais[i].montant;
+			total.tr_a_enlever+=$scope.listeFrais[i].tr_a_enlever;
+		}
+		$scope.total=total;
+	};
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
 		$scope.annee = Selection.annee();
@@ -28,7 +43,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 
 	});
 	
-//fetch		
+//fetch
 	$scope.fetchFrais=function() {
 		var critere={};
 		if($scope.personne) {
@@ -39,19 +54,64 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 
 		}
 		
-		$scope.listeFrais = resourceFrais.get(critere);
+		$scope.listeFrais = resourceFrais.get(critere, function() {
+			$scope.calculerTotaux();
+		});
 	};
 	
+//print
+	$scope.print = function(value) {
+		
+		var selectedList = []; // chercher les frais du mois indiqué
+		for (var i=0;i<$scope.listeFrais.length;i++) {
+			var dateregex= /^([0-9]+)-([0-9]+)-([0-9]+)/;
+			var t=$scope.listeFrais[i].date_frais.match(dateregex);
+			if(value == (parseInt(t[2],10))) {
+				selectedList.push($scope.listeFrais[i]);
+			}
+		}
+		if(selectedList.length>0) {
+			var liste = $scope.listeFrais;
+			$scope.listeFrais = selectedList;
+	
+			var p=$timeout(function() { // différer pour appliquer les modifications du scope
+				window.print();
+			});
+			p.then(function() {
+				$scope.listeFrais = liste; // rétablir la sélection courante
+			});
+		}
+		else {
+			alert("Pas de frais pour ce mois");
+		}
+	};
+//mois
+$scope.listeMois= [{name:"Janvier", value:1},
+			{name:"Février", value:2},
+			{name:"Mars", value:3},
+			{name:"Avril", value:4},
+			{name:"Mai", value:5},
+			{name:"Juin", value:6},
+			{name:"Juillet", value:7},
+			{name:"Août", value:8},
+			{name:"Septembre", value:9},
+			{name:"Octobre", value:10},
+			{name:"Novembre", value:11},
+			{name:"Décembre", value:12}];
 //initialisation
 	$scope.annee = Selection.annee();
 	$scope.personne=Selection.personne();
 	$scope.fetchFrais();
-
+	
+	
 //ajout/modif/suppression	
 	$scope.modifyRecord = ListController.modifyRecord({
 		controller : "FraisCtrl",
 		dialogClass : "modal-frais",
-		templateUrl : "partials/frais.html"
+		templateUrl : "partials/frais.html",
+		onValidation: function() {
+			$scope.calculerTotaux();
+		}
 	});
 
 	$scope.addRecord = ListController.addRecord({
@@ -61,6 +121,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog) {
 		resource : resourceFrais,
 		defaultValues : {nature: "frais",total_frais:0,kilometres:0,frais_parking:0, frais_restauration:0,frais_divers:0,tr_a_enlever:0 },
 		onValidation: function(result) {
+			$scope.calculerTotaux();
 			$scope.listeFrais.push(result);
 		}
 	});

@@ -1,8 +1,19 @@
 <div ng-controller="FraisListeCtrl">
 <h3 class="text-center">Frais</h3>
+<div class="btn-group">
+  <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+	Notes de frais par mois...
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    <li ng-repeat="mois in listeMois">
+		<a ng-click="print(mois.value);">{{mois.name}}</a>
+	</li>
+  </ul>
+</div>
+
 <button class="btn" ng-click="" ></button>
-<button class="btn" ng-click="" ></button>
-<table class="table table-hover " >
+<table id="printarea" class="table table-hover " >
 	<thead>
 		<th><button class="btn" ng-click="addRecord()" ><i class="icon-plus"></i></button>&nbsp;</th>
 		<th>Date</th>
@@ -28,15 +39,24 @@
 			<td >{{frais.lieu}}</td>
 			<td >{{frais.kilometres}}</td>
 			<td >{{getVehiculeName(frais.id_vehicule)}}</td>
-			<td >{{frais.taux | frnumber}}</td>
-			<td >{{frais.constante}}</td>
-			<td >{{frais.montant | frnumber:2}}</td>
-			<td >{{frais.frais_parking | frnumber:2}}</td>
-			<td >{{frais.frais_restauration | frnumber:2}}</td>
-			<td >{{frais.frais_divers | frnumber:2}}</td>
-			<td >{{frais.total_frais | frnumber:2}}</td>
-			<td >{{frais.tr_a_enlever}}</td>
-
+			<td class="numbercell">{{frais.taux | frnumber}}</td>
+			<td class="numbercell">{{frais.constante | frnumber}}</td>
+			<td class="numbercell">{{frais.montant | frnumber:2}}</td>
+			<td class="numbercell">{{frais.frais_parking | frnumber:2}}</td>
+			<td class="numbercell">{{frais.frais_restauration | frnumber:2}}</td>
+			<td class="numbercell">{{frais.frais_divers | frnumber:2}}</td>
+			<td class="numbercell">{{frais.total_frais | frnumber:2}}</td>
+			<td class="numbercell">{{frais.tr_a_enlever}}</td>
+		</tr>
+		<tr class="info">
+			<td><!--button--></td>
+			<td colspan="7"></td>
+			<td class="numbercell">{{total.montant | frnumber:2}}</td>
+			<td class="numbercell">{{total.parking | frnumber:2}}</td>
+			<td class="numbercell">{{total.restauration | frnumber:2}}</td>
+			<td class="numbercell">{{total.divers | frnumber:2}}</td>
+			<td class="numbercell">{{total.frais | frnumber:2}}</td>
+			<td class="numbercell">{{total.tr_a_enlever }}</td>
 		</tr>
 	</tbody>
 </table>
