@@ -61,8 +61,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$time
 	};
 	
 //print
-	$scope.print = function(value) {
-		
+	$scope.printMois = function(value) {
 		var selectedList = []; // chercher les frais du mois indiqué
 		for (var i=0;i<$scope.listeFrais.length;i++) {
 			var dateregex= /^([0-9]+)-([0-9]+)-([0-9]+)/;
@@ -74,52 +73,67 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$time
 		if(selectedList.length>0) {
 			var liste = $scope.listeFrais;
 			$scope.listeFrais = selectedList;
-	
+			$scope.titreFrais = value;
 			var p=$timeout(function() { // différer pour appliquer les modifications du scope
 				window.print();
 			});
 			p.then(function() {
 				$scope.listeFrais = liste; // rétablir la sélection courante
+				$scope.titreFrais = "";
 			});
 		}
 		else {
 			alert("Pas de frais pour ce mois");
 		}
 	};
-//mois
-$scope.listeMois= [{name:"Janvier", value:1},
-			{name:"Février", value:2},
-			{name:"Mars", value:3},
-			{name:"Avril", value:4},
-			{name:"Mai", value:5},
-			{name:"Juin", value:6},
-			{name:"Juillet", value:7},
-			{name:"Août", value:8},
-			{name:"Septembre", value:9},
-			{name:"Octobre", value:10},
-			{name:"Novembre", value:11},
-			{name:"Décembre", value:12}];
-//initialisation
-	$scope.annee = Selection.annee();
-	$scope.personne=Selection.personne();
-	$scope.fetchFrais();
 	
+	$scope.printSelection = function() {
+		if($scope.selectionCourante.length>0) {
+			var mois=prompt("Mois :");
+			if(mois!==null) {
+				var liste = $scope.listeFrais;
+				$scope.listeFrais = $scope.selectionCourante;
+				$scope.titreFrais = mois;
+				var p=$timeout(function() { // différer pour appliquer les modifications du scope
+					window.print();
+				});
+				p.then(function() {
+					$scope.listeFrais = liste; // rétablir la sélection courante
+					$scope.titreFrais = "";
+
+				});
+			}
+		}
+	}; // printSelection
+
 //selection
 	$scope.selectRecord = function(frais,event) {
-		var i=_.indexOf($scope.selectionCourante,frais);
-		if(i==-1) {
-			$scope.selectionCourante.push(frais);
-		} else {
-			$scope.selectionCourante.splice(i,1);
+		event.preventDefault();
+		if(event.shiftKey) {
+			var i=_.indexOf($scope.selectionCourante,frais);
+			if(i==-1) {
+				$scope.selectionCourante.push(frais);
+			} else {
+				$scope.selectionCourante.splice(i,1);
+			}
 		}
-	}
+		else {
+			$scope.selectionCourante = [frais];
+		}
+		document.getSelection().removeAllRanges();
+	};
+	
 	$scope.isSelected = function(frais) {
 		if(_.indexOf($scope.selectionCourante,frais)>=0) {
-			return "isSelected"
+			return "isSelected";
 		}
-		else return "";
-	}
-//ajout/modif/suppression	
+		else {
+			return "";
+		}
+	}; //isSelected
+	
+	
+//ajout/modif/suppression
 	$scope.modifyRecord = ListController.modifyRecord({
 		controller : "FraisCtrl",
 		dialogClass : "modal-frais",
@@ -151,6 +165,27 @@ $scope.listeMois= [{name:"Janvier", value:1},
 		}
 		}
 	};
+
+	
+	//initialisation
+	//mois
+	$scope.listeMois= [{name:"Janvier", value:1},
+			{name:"Février", value:2},
+			{name:"Mars", value:3},
+			{name:"Avril", value:4},
+			{name:"Mai", value:5},
+			{name:"Juin", value:6},
+			{name:"Juillet", value:7},
+			{name:"Août", value:8},
+			{name:"Septembre", value:9},
+			{name:"Octobre", value:10},
+			{name:"Novembre", value:11},
+			{name:"Décembre", value:12}];
+	$scope.annee = Selection.annee();
+	$scope.personne=Selection.personne();
+	$scope.titreFrais = "";
+	$scope.fetchFrais();
+	
 
 } // FraisListeCtrl
 
@@ -187,7 +222,7 @@ function FraisCtrl($scope, dialog, Selection,DataSource, record,iso2dateFilter,d
 
 	};
 	
-	//initialisation
+//initialisation
 	$scope.nomPersonne = Selection.personne().prenom+" "+Selection.personne().nom;
 	$scope.vehicules=resourceVehicule.get(function() {
 		$scope.fraisCourant=record;
@@ -200,6 +235,7 @@ function FraisCtrl($scope, dialog, Selection,DataSource, record,iso2dateFilter,d
 			$scope.updateFrais();
 		}
 	});
+	
 	
 	
 } //FraisCtrl

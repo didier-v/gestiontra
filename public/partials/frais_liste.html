@@ -1,5 +1,6 @@
 <div ng-controller="FraisListeCtrl">
-<h3 class="text-center">Frais</h3>
+<h3 class="text-center">Frais {{titreFrais}}</h3>
+<div><span class="span1"></span> Imprimer : 
 <div class="btn-group">
   <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
 	Notes de frais par mois...
@@ -7,13 +8,13 @@
   </a>
   <ul class="dropdown-menu">
     <li ng-repeat="mois in listeMois">
-		<a ng-click="print(mois.value);">{{mois.name}}</a>
+		<a ng-click="printMois(mois.value);">{{mois.name}}</a>
 	</li>
   </ul>
 </div>
-
-<button class="btn" ng-click="print_selection()">Notes de frais par selection...</button>
-<table id="printarea" class="table " >
+<button class="btn" ng-click="printSelection()">Notes de frais par selection...</button>
+</div>
+<table class="table">
 	<thead>
 		<th><button class="btn" ng-click="addRecord()" ><i class="icon-plus"></i></button>&nbsp;</th>
 		<th>Date</th>
