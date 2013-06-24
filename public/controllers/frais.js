@@ -55,6 +55,7 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$time
 		}
 		
 		$scope.listeFrais = resourceFrais.get(critere, function() {
+			$scope.selectionCourante = [];
 			$scope.calculerTotaux();
 		});
 	};
@@ -103,7 +104,21 @@ $scope.listeMois= [{name:"Janvier", value:1},
 	$scope.personne=Selection.personne();
 	$scope.fetchFrais();
 	
-	
+//selection
+	$scope.selectRecord = function(frais,event) {
+		var i=_.indexOf($scope.selectionCourante,frais);
+		if(i==-1) {
+			$scope.selectionCourante.push(frais);
+		} else {
+			$scope.selectionCourante.splice(i,1);
+		}
+	}
+	$scope.isSelected = function(frais) {
+		if(_.indexOf($scope.selectionCourante,frais)>=0) {
+			return "isSelected"
+		}
+		else return "";
+	}
 //ajout/modif/suppression	
 	$scope.modifyRecord = ListController.modifyRecord({
 		controller : "FraisCtrl",

@@ -12,8 +12,8 @@
   </ul>
 </div>
 
-<button class="btn" ng-click="" ></button>
-<table id="printarea" class="table table-hover " >
+<button class="btn" ng-click="print_selection()">Notes de frais par selection...</button>
+<table id="printarea" class="table " >
 	<thead>
 		<th><button class="btn" ng-click="addRecord()" ><i class="icon-plus"></i></button>&nbsp;</th>
 		<th>Date</th>
@@ -31,9 +31,9 @@
 		<th>TR à enlever</th>
 	</thead>
 	<tbody>
-		<tr ng-repeat="frais in listeFrais" ng-dblclick="modifyRecord(frais)"
-			ng-mouseenter="over=true" ng-mouseleave="over=false">
-			<td class="span1"><span ng-show="over==true"><button class="btn" ng-click="deleteFrais(frais)"><i class="icon-trash"></i></button></span></td>
+		<tr ng-repeat="frais in listeFrais" ng-dblclick="modifyRecord(frais)" ng-click="selectRecord(frais,$event)"
+			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)" >
+			<td class="span1"><span ng-show="over"><button class="btn" ng-click="deleteFrais(frais)"><i class="icon-trash"></i></button></span></td>
 			<td >{{frais.date_frais | iso2date}}</td>
 			<td >{{frais.intitule}}</td>
 			<td >{{frais.lieu}}</td>

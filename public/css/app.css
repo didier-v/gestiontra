@@ -31,6 +31,10 @@
   text-align: right;
 }
 
+.isSelected {
+	background-color: #0cf;
+}
+
 
 @media print {
   .navbar, .btn { visibility: hidden;}
