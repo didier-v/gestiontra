@@ -1,7 +1,7 @@
 /* app.js */
 /*global angular */
 
-var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap','gestiontrfilters']);
+var myModule=angular.module('gestiontr', ['ngResource','ui.bootstrap','gestiontrfilters','dateUtilsModule']);
 
 myModule.config(function($httpProvider) {
 	var myReplacer = function(key,value) {

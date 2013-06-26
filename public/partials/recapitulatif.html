@@ -1,0 +1,42 @@
+<div ng-controller="RecapitulatifCtrl">
+<h3 class="text-center">Récapitulatif</h3>
+<button class="btn" ng-click="print()">Imprimer</button>
+<input ng-model="recap.calculManuel" type="checkbox" ng-checked="master"> Calcul manuel
+<table class="table">
+	<thead>
+		<th>Mois</th>
+		<th>CPn1</th>
+		<th>RTTn1</th>
+		<th>Maladie</th>
+		<th>CPn</th>
+		<th>RTTn</th>
+		<th>Jours ouvrés</th>
+		<th>TR à distribuer</th>
+		<th>TR distribués</th>
+		<th>Débit TR</th>
+		<th>Crédit TR</th>
+		<th>Frais déclarés</th>
+		<th>TR à enlever</th>
+	</thead>
+	<tbody>
+		<tr ng-repeat="recap in listeRecap" 
+			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)" >
+			<td >{{recap.mois}}</td>
+			<td class="numbercell">{{recap.CPn1}}</td>
+			<td class="numbercell">{{recap.RTTn1}}</td>
+			<td class="numbercell">{{recap.maladie}}</td>
+			<td class="numbercell">{{recap.CPn}}</td>
+			<td class="numbercell">{{recap.RTTn}}</td>
+			<td class="numbercell">{{recap.jours_ouvres}}</td>
+			<td class="numbercell">{{recap.tr_a_distribuer}}</td>
+			<td class="numbercell">{{recap.tr_distribues}}</td>
+			<td class="numbercell">{{recap.debit_tr}}</td>
+			<td class="numbercell">{{recap.credit_tr}}</td>
+			<td class="numbercell">{{recap.fraisDeclares}}</td>
+			<td class="numbercell">{{recap.TRAEnlever}}</td>
+		</tr>
+	</tbody>
+</table>
+
+
+</div>

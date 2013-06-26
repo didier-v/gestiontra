@@ -38,6 +38,7 @@ function CalendrierCtrl($scope,DataSource,ListController,Selection) {
 		}
 		}
 	};
+
 	
 } // CalendrierCtrl
 
