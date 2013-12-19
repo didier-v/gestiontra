@@ -20,8 +20,8 @@ return {
 	  else {
 		 var dateregex= /^([0-9]+)-([0-9]+)-([0-9]+)/;
 		 var t=d.match(dateregex);
-		 d=new Date(parseInt(t[1]), parseInt(t[2])-1, parseInt(t[3]));
-		 onejan = new Date(parseInt(t[1]), 0, 1);
+		 d=new Date(parseInt(t[1],10), parseInt(t[2],10)-1, parseInt(t[3],10));
+		 onejan = new Date(parseInt(t[1],10), 0, 1);
 	  }
    return 1 + Math.ceil((d - onejan) / 86400000);
 
@@ -33,9 +33,14 @@ return {
 
    getDayFromDOY: function(year, doy){
 	  return new Date(year, 0, doy).getDay();
+   },
+
+   iso2date: function(d)  {
+      var dateregex= /^([0-9]+)-([0-9]+)-([0-9]+)/;
+	  var t=d.match(dateregex);
+	  return new Date(parseInt(t[1],10), parseInt(t[2],10)-1, parseInt(t[3],10));
+
    }
-
-
 
 };
 
