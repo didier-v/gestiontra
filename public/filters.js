@@ -6,12 +6,16 @@ filter("frnumber",function() {
 //		console.log(input);
 //		console.log(number);
 		var i=input;
+		if (angular.isString(i)) {
+			i=parseFloat(i);
+		}
 		if((i===undefined) || (i===null)) {
 			i=0;
 		}
 		if(number) {
 			i=i.toFixed(number);
 		}
+		
 		return i.toString().replace(".",",");
 	};
 }).
