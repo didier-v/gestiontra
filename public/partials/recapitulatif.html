@@ -20,7 +20,9 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="recap in listeRecap" 
-			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)" >
+			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)"
+			 ng-class-odd="'odd'" ng-class-even="'even'"
+			 >
 			<td >{{recap.mois}}</td>
 			<td class="numbercell">{{recap.CPn1}}</td>
 			<td class="numbercell">{{recap.RTTn1}}</td>

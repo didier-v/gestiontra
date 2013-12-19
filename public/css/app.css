@@ -35,6 +35,13 @@
 	background-color: #0cf;
 }
 
+.odd {
+	background-color: #FFFFFF;
+}
+	
+.even {
+  background-color: #F0F0FF
+}
 
 @media print {
   .navbar, .btn { visibility: hidden;}

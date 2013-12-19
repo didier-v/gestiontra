@@ -33,7 +33,8 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="frais in listeFrais" ng-dblclick="modifyRecord(frais)" ng-click="selectRecord(frais,$event)"
-			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)" >
+			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)"
+						 ng-class-odd="'odd'" ng-class-even="'even'">
 			<td class="span1"><span ng-show="over"><button class="btn" ng-click="deleteFrais(frais)"><i class="icon-trash"></i></button></span></td>
 			<td >{{frais.date_frais | iso2date}}</td>
 			<td >{{frais.intitule}}</td>

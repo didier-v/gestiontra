@@ -10,7 +10,8 @@
 	</thead>
 	<tbody>
 		<tr ng-repeat="conge in conges" ng-dblclick="modifyRecord(conge)"
-			ng-mouseenter="over=true" ng-mouseleave="over=false">
+			ng-mouseenter="over=true" ng-mouseleave="over=false"
+						 ng-class-odd="'odd'" ng-class-even="'even'">
 			<td class="span1"><span ng-show="over==true"><button class="btn" ng-click="deleteConge(conge)"><i class="icon-trash"></i></button></span></td>
 			<td >{{conge.date_debut |  iso2date}}</td>
 			<td >{{conge.date_fin |  iso2date}}</td>
