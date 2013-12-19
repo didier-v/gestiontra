@@ -1,7 +1,7 @@
 /* menu.js */
 
 
-function MenuController($scope,Selection,DataSource) {
+function MenuController($scope,Selection,dataSource) {
 	$scope.mainView=""; //$scope.pages[0].url;
 
 //personnes
@@ -26,7 +26,7 @@ function MenuController($scope,Selection,DataSource) {
 
 //initialisation	
 	$scope.setAnnee(new Date().getFullYear());
-	var resourcePersonne = DataSource({nature:"personne"});
+	var resourcePersonne = dataSource({nature:"personne"});
 	$scope.listePersonnes=resourcePersonne.get(function() {
 		$scope.setPersonneCourante($scope.listePersonnes[0]);
 	});

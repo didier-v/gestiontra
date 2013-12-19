@@ -1,8 +1,8 @@
 /* vehiculesCtrl.js */
 /*global _,confirm */
 
-function VehiculesCtrl($scope,DataSource,ListController) {
-	var resourceVehicule = DataSource({nature:"vehicule"});
+function VehiculesCtrl($scope,dataSource,ListController) {
+	var resourceVehicule = dataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 	$scope.modifyRecord = ListController.modifyRecord({

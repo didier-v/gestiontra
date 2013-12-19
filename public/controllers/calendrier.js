@@ -1,10 +1,10 @@
 /* calendrierCtrl.js */
 /*global angular, console, _, confirm */
-function CalendrierCtrl($scope,DataSource,ListController,Selection) {
+function CalendrierCtrl($scope,dataSource,ListController,Selection) {
 	var	critere = {	};
 	$scope.annee= Selection.annee();
 	critere.jour= { '$regex': $scope.annee+'.*'};
-	var resourceCalendrier = DataSource({nature:"jour_ferie"});
+	var resourceCalendrier = dataSource({nature:"jour_ferie"});
 	$scope.calendrier=resourceCalendrier.get(critere);
 
 	$scope.$on("anneeDidChange",function(event) {

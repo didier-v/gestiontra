@@ -1,6 +1,6 @@
 /* recapitulatif.js */
 /*global _ */
-function RecapitulatifCtrl($scope,DataSource,Selection,DateUtils) {
+function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
@@ -40,10 +40,10 @@ function RecapitulatifCtrl($scope,DataSource,Selection,DateUtils) {
 	
 	$scope.fetchRecap = function() {
 		$scope.listeRecap=[];
-		var resourceConge= DataSource({nature:"conges"});
-		var resourceFrais = DataSource({nature:"frais"});
-		var resourceRecap = DataSource({nature:"recapGlobal"});
-		var resourceJourFerie = DataSource({nature:"jour_ferie"});
+		var resourceConge= dataSource({nature:"conges"});
+		var resourceFrais = dataSource({nature:"frais"});
+		var resourceRecap = dataSource({nature:"recapGlobal"});
+		var resourceJourFerie = dataSource({nature:"jour_ferie"});
 
 
 		resourceJourFerie.get({jour:{ $regex:  $scope.annee+'.*'},type:"Jour férié"}, function(jours_feries) {

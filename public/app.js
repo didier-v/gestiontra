@@ -122,7 +122,7 @@ myModule.service('ListController', function($dialog) {
 });
 
 /******* resources **************/
-myModule.factory ('DataSource', function($resource) {
+myModule.factory ('dataSource', function($resource) {
 	/* params : { nature : <nature> } */
 	function DataSourceFactory(params) {
 		var resourceInstance;

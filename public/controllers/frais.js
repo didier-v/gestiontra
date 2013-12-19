@@ -1,10 +1,10 @@
 /* frais.js */
 /*global angular, console, _ , confirm */
 
-function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$timeout) {
+function FraisListeCtrl($scope,dataSource,Selection,ListController,$dialog,$timeout) {
 // resources
-	var resourceFrais = DataSource({nature:"frais"});
-	var resourceVehicule = DataSource({nature:"vehicule"});
+	var resourceFrais = dataSource({nature:"frais"});
+	var resourceVehicule = dataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 
@@ -189,8 +189,8 @@ function FraisListeCtrl($scope,DataSource,Selection,ListController,$dialog,$time
 
 } // FraisListeCtrl
 
-function FraisCtrl($scope, dialog, Selection,DataSource, record,iso2dateFilter,date2isoFilter) {
-	var resourceVehicule = DataSource({nature:"vehicule"});
+function FraisCtrl($scope, dialog, Selection,dataSource, record,iso2dateFilter,date2isoFilter) {
+	var resourceVehicule = dataSource({nature:"vehicule"});
 	
 // maj	
 	$scope.updateFrais = function() {

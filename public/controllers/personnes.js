@@ -1,8 +1,7 @@
 /* personnes.js */
 /*global angular, console, _ ,confirm*/
-function PersonnesCtrl($scope,DataSource, ListController) {
-	// var personnesDataSource = resourcePersonne.get();
-	var resourcePersonne = DataSource({nature:"personne"});
+function PersonnesCtrl($scope,dataSource, ListController) {
+	var resourcePersonne = dataSource({nature:"personne"});
 	$scope.personnes=resourcePersonne.get();
 
 
@@ -35,9 +34,9 @@ function PersonnesCtrl($scope,DataSource, ListController) {
 } // PersonnesCtrl
 
 
-function PersonneCtrl($scope, dialog,DataSource, record) {
+function PersonneCtrl($scope, dialog, dataSource, record) {
 	$scope.personneCourante=record;
-	var resourceVehicule = DataSource({nature:"vehicule"});
+	var resourceVehicule = dataSource({nature:"vehicule"});
 	$scope.vehicules=resourceVehicule.get();
 
 	$scope.cancel= function() {

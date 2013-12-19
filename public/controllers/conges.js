@@ -1,8 +1,8 @@
 /* conges.js */
 /*global angular, console, _ , confirm */
 
-function CongesCtrl($scope,DataSource, Selection,ListController) {
-	var resourceConge= DataSource({nature:"conges"});;
+function CongesCtrl($scope,dataSource, Selection,ListController) {
+	var resourceConge= dataSource({nature:"conges"});;
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
 		$scope.annee = Selection.annee();
