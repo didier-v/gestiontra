@@ -5,18 +5,18 @@
 <table class="table">
 	<thead>
 		<th>Mois</th>
-		<th>CPn1</th>
-		<th>RTTn1</th>
-		<th>Maladie</th>
-		<th>CPn</th>
-		<th>RTTn</th>
-		<th>Jours ouvrés</th>
-		<th>TR à distribuer</th>
-		<th>TR distribués</th>
-		<th>Débit TR</th>
-		<th>Crédit TR</th>
-		<th>Frais déclarés</th>
-		<th>TR à enlever</th>
+		<th class="numbercell">CPn1</th>
+		<th class="numbercell">RTTn1</th>
+		<th class="numbercell">Maladie</th>
+		<th class="numbercell">CPn</th>
+		<th class="numbercell">RTTn</th>
+		<th class="numbercell">Jours ouvrés</th>
+		<th class="numbercell">TR à distribuer</th>
+		<th class="numbercell">TR distribués</th>
+		<th class="numbercell">Débit TR</th>
+		<th class="numbercell">Crédit TR</th>
+		<th class="numbercell">Frais déclarés</th>
+		<th class="numbercell">TR à enlever</th>
 	</thead>
 	<tbody>
 		<tr ng-repeat="recap in listeRecap" 
@@ -24,18 +24,22 @@
 			 ng-class-odd="'odd'" ng-class-even="'even'"
 			 >
 			<td >{{recap.mois}}</td>
-			<td class="numbercell">{{recap.CPn1}}</td>
-			<td class="numbercell">{{recap.RTTn1}}</td>
-			<td class="numbercell">{{recap.maladie}}</td>
-			<td class="numbercell">{{recap.CPn}}</td>
-			<td class="numbercell">{{recap.RTTn}}</td>
-			<td class="numbercell">{{recap.jours_ouvres}}</td>
-			<td class="numbercell">{{recap.tr_a_distribuer}}</td>
-			<td class="numbercell">{{recap.tr_distribues}}</td>
-			<td class="numbercell">{{recap.debit_tr}}</td>
-			<td class="numbercell">{{recap.credit_tr}}</td>
-			<td class="numbercell">{{recap.fraisDeclares}}</td>
-			<td class="numbercell">{{recap.TRAEnlever}}</td>
+			<td class="numbercell">{{recap.CPn1|frnumber}}</td>
+			<td class="numbercell">{{recap.RTTn1|frnumber}}</td>
+			<td class="numbercell">{{recap.maladie|frnumber}}</td>
+			<td class="numbercell">{{recap.CPn|frnumber}}</td>
+			<td class="numbercell">{{recap.RTTn|frnumber}}</td>
+			<td class="numbercell">{{recap.jours_ouvres|frnumber}}</td>
+			<td class="numbercell">{{recap.tr_a_distribuer|frnumber}}</td>
+			<td class="numbercell">
+				<span ng-if="($index!=0)">
+					<input type="number" ng-model="recap.tr_distribues" style="width:4em;" ng-blur="updateRecap($index)">
+				</span>
+			</td>
+			<td class="numbercell">{{recap.debit_tr|frnumber}}</td>
+			<td class="numbercell">{{recap.credit_tr|frnumber}}</td>
+			<td class="numbercell">{{recap.frais_declares|frnumber:2}}</td>
+			<td class="numbercell">{{recap.TRAEnlever|frnumber}}</td>
 		</tr>
 	</tbody>
 </table>

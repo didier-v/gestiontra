@@ -20,7 +20,6 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 		var d1=DateUtils.getDOY(date1);
 		var d2=DateUtils.getDOY(date2);
 		var y=date1.getFullYear();
-		console.log(date1);
 		if(d2>=d1) {
 				nb=0;
 				for(d1;d1<=d2;d1++)
@@ -38,6 +37,32 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 		}
 	};
 	
+	$scope.compterConges = function(dataConges, mois, type) {
+		var nbjours=0;
+		for(var i=0;i<dataConges.length;i++) {
+			if (dataConges[i].type == type) {
+				if (DateUtils.iso2date(dataConges[i].date_fin).getMonth() == (mois - 1)) //
+				{
+					nbjours+=dataConges[i].nb_jours;
+				}
+			} // type
+			
+		} //for
+		return nbjours;
+	};
+	
+	$scope.compterFrais = function(dataFrais, mois) {
+		var total=0;
+		for (var i = 0; i < dataFrais.length; i++) {
+			if(dataFrais[i].date_frais!==undefined) {
+				if (DateUtils.iso2date(dataFrais[i].date_frais).getMonth() == (mois - 1)) {
+					total+=dataFrais[i].total_frais;
+				}
+			}
+		}
+		return total;
+	},
+	
 	$scope.fetchRecap = function() {
 		$scope.listeRecap=[];
 		var resourceConge= dataSource({nature:"conges"});
@@ -52,10 +77,10 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 			}
 			var conges = resourceConge.get(
 				{id_personne: $scope.personne.id,date_fin: { $regex: $scope.annee +'.*'}},
-				function() {
+				function(dataConges) {
 					var frais=resourceFrais.get(
 						{id_personne:$scope.personne.id, date_frais: { $regex: $scope.annee +'.*'}},
-						function(){
+						function(dataFrais){
 							resourceRecap.get(
 							{id_personne:$scope.personne.id,annee : $scope.annee},
 							function(listeRecap) {
@@ -64,10 +89,19 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 									var ligne={}; // ligne du tableau recap
 									ligne.mois=tmois[mois];
 									ligne.annee = Selection.annee();
-									ligne.jours_ouvres=$scope.joursOuvrables(new Date(ligne.annee,mois-1,1),new Date(ligne.annee,mois,0),jours_feries);
 	
 									if(mois!==0) { // sauf pour la ligne report
-										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:mois}));
+										ligne.jours_ouvres=$scope.joursOuvrables(new Date(ligne.annee,mois-1,1),new Date(ligne.annee,mois,0),jours_feries);
+										// charger les conges
+										ligne.CPn1=$scope.compterConges(dataConges, mois, "Congé "+($scope.annee-1));
+										ligne.CPn=$scope.compterConges(dataConges, mois, "Congé "+$scope.annee);
+										ligne.RTTn1=$scope.compterConges(dataConges, mois, "RTT "+($scope.annee-1));
+										ligne.RTTn=$scope.compterConges(dataConges, mois, "RTT "+$scope.annee);
+										ligne.maladie=$scope.compterConges(dataConges, mois, "Maladie");
+										ligne.frais_declares=$scope.compterFrais(dataFrais, mois);
+
+										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:mois+""}));									ligne.mois=tmois[mois];
+										ligne.mois=tmois[mois];
 										$scope.listeRecap.push(ligne);
 	
 									}
@@ -102,6 +136,12 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 				});
 		});
 
+	}; //fetchRecap
+	
+	$scope.updateRecap = function(i) {
+		console.log(i);
+		console.log($scope.listeRecap);
+		console.log($scope.listeRecap[i]);
 	}
 
 	//initialisation
