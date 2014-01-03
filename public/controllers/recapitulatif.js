@@ -15,6 +15,7 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 
 	});
 
+// calculs
 	$scope.joursOuvrables = function(date1, date2,jours_feries) {
 		var nb;
 		var d1=DateUtils.getDOY(date1);
@@ -63,12 +64,17 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 		return total;
 	},
 	
+// fetch
 	$scope.fetchRecap = function() {
 		$scope.listeRecap=[];
-		var resourceConge= dataSource({nature:"conges"});
-		var resourceFrais = dataSource({nature:"frais"});
-		var resourceRecap = dataSource({nature:"recapGlobal"});
-		var resourceJourFerie = dataSource({nature:"jour_ferie"});
+		//var resourceConge= dataSource({nature:"conges"});
+		//var resourceFrais = dataSource({nature:"frais"});
+		//var resourceRecap = dataSource({nature:"recapGlobal"});
+		//var resourceJourFerie = dataSource({nature:"jour_ferie"});
+		var resourceConge= $scope.resourceConge;
+		var resourceFrais = $scope.resourceFrais
+		var resourceRecap = $scope.resourceRecap;
+		var resourceJourFerie = $scope.resourceJourFerie;
 
 
 		resourceJourFerie.get({jour:{ $regex:  $scope.annee+'.*'},type:"Jour férié"}, function(jours_feries) {
@@ -148,5 +154,10 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 	$scope.annee = Selection.annee();
 	$scope.personne=Selection.personne();
 	$scope.listeRecap = [];
+	$scope.resourceConge= dataSource({nature:"conges"});
+	$scope.resourceFrais = dataSource({nature:"frais"});
+	$scope.resourceRecap = dataSource({nature:"recapGlobal"});
+	$scope.resourceJourFerie = dataSource({nature:"jour_ferie"});
+
 	$scope.fetchRecap();
 } // RecapitulatifCtrl
