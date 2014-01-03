@@ -63,7 +63,7 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 		}
 		return total;
 	},
-	
+
 // fetch
 	$scope.fetchRecap = function() {
 		$scope.listeRecap=[];
@@ -97,6 +97,7 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 									ligne.annee = Selection.annee();
 	
 									if(mois!==0) { // sauf pour la ligne report
+										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:mois+""}));									ligne.mois=tmois[mois];
 										ligne.jours_ouvres=$scope.joursOuvrables(new Date(ligne.annee,mois-1,1),new Date(ligne.annee,mois,0),jours_feries);
 										// charger les conges
 										ligne.CPn1=$scope.compterConges(dataConges, mois, "Congé "+($scope.annee-1));
@@ -106,13 +107,12 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 										ligne.maladie=$scope.compterConges(dataConges, mois, "Maladie");
 										ligne.frais_declares=$scope.compterFrais(dataFrais, mois);
 
-										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:mois+""}));									ligne.mois=tmois[mois];
 										ligne.mois=tmois[mois];
 										$scope.listeRecap.push(ligne);
 	
 									}
 									else { // ligne de report
-										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:0}));
+										ligne=angular.extend(ligne,_.findWhere(listeRecap,{mois:"0"}));
 										ligne.CPn1=0;
 										ligne.CPn=0;
 										ligne.RTTn1=0;
@@ -126,8 +126,8 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 										// 	ligne.credit_tr=record.credit_tr;
 										// }
 										// else {
-											ligne.debit_tr=0;
-											ligne.credit_tr=0;
+											//ligne.debit_tr=0;
+											//ligne.credit_tr=0;
 										// }
 										ligne.frais_declares=0;
 										ligne.tr_a_enlever=0;
@@ -135,7 +135,6 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 									}
 	
 								}
-								console.log(listeRecap);
 							});
 	
 					});
@@ -145,9 +144,17 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 	}; //fetchRecap
 	
 	$scope.updateRecap = function(i) {
-		console.log(i);
-		console.log($scope.listeRecap);
+		var resourceRecap = $scope.resourceRecap;
+		console.log(resourceRecap);
+		var x=resourceRecap.get({id_personne:$scope.personne.id,annee : $scope.annee},function(liste) {
+			console.log(liste);
+		});
+		resourceRecap.save($scope.listeRecap[i]);
+//$scope.listeRecap[i].$save();
+		//console.log(i);
+		//console.log($scope.listeRecap);
 		console.log($scope.listeRecap[i]);
+		
 	}
 
 	//initialisation
