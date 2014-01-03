@@ -30,7 +30,7 @@ function CalendrierCtrl($scope,dataSource,ListController,Selection) {
 	
 	$scope.remove=function(jour) {
 		var i=_.indexOf($scope.calendrier ,jour);
-		if(i>0) {
+		if(i>=0) {
 			if(confirm("Supprimer "+jour.jour+" ?")){
 			jour.$remove(function() {
 				$scope.calendrier.splice(i,1);
