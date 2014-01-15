@@ -1,4 +1,10 @@
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
 .modal-frais {
   position: fixed;
   top: 10%;
@@ -27,8 +33,24 @@
 	
 }
 
+.recapitulatif {
+  margin-left: auto;
+  margin-right: auto;
+  width:95%;
+}
+
 .table .numbercell {
   text-align: right;
+  vertical-align: middle;	
+  padding: 2px;
+}
+.table input {
+  margin-bottom: 1px;
+  background: transparent;
+  border:0;
+}
+.table input:focus {
+  background:white;
 }
 
 .isSelected {
@@ -36,11 +58,11 @@
 }
 
 .odd {
-	background-color: #FFFFFF;
+	background-color: #FAFAFF;
 }
 	
 .even {
-  background-color: #F0F0FF
+  background-color: #F4F4FF
 }
 
 @media print {
@@ -50,7 +72,7 @@
   }
   .table {
 	width:90%;
-	margin:0px;padding:0px;
+	margin:10px;padding:0px;
   }
   .table td {
 	border:1px solid #000000;
