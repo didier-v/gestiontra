@@ -23,7 +23,7 @@
 			ng-mouseenter="over=true" ng-mouseleave="over=false" ng-class="isSelected(frais)"
 			 ng-class-odd="'odd'" ng-class-even="'even'"
 			 >
-			<td >{{recap.mois}}</td>
+			<td >{{recap.mois_texte}}</td>
 			<td class="numbercell">{{recap.CPn1|frnumber}}</td>
 			<td class="numbercell">{{recap.RTTn1|frnumber}}</td>
 			<td class="numbercell">{{recap.maladie|frnumber}}</td>
@@ -32,14 +32,28 @@
 			<td class="numbercell">{{recap.jours_ouvres|frnumber}}</td>
 			<td class="numbercell">{{recap.tr_a_distribuer|frnumber}}</td>
 			<td class="numbercell">
-				<span ng-if="($index!=0)">
-					<input type="number" ng-model="recap.tr_distribues" style="width:4em;" ng-blur="updateRecap($index)">
+				<div ng-if="($index!=0)">
+					<input type="number" ng-model="recap.tr_distribues" style="width:4em;" ng-blur="updateRecap($index)" >
+				</div>
+			</td>
+			<td class="numbercell">
+				<span ng-switch="$index">
+					<span ng-switch-when="0" >
+					<input type="number" ng-model="recap.debit_tr" style="width:4em;" ng-blur="updateRecap($index)" >
+					</span>
+					<span ng-switch-default>{{recap.debit_tr|frnumber}}</span>
 				</span>
 			</td>
-			<td class="numbercell">{{recap.debit_tr|frnumber}}</td>
-			<td class="numbercell">{{recap.credit_tr|frnumber}}</td>
+			<td class="numbercell">
+				<span ng-switch="$index">
+					<span ng-switch-when="0" >
+					<input type="number" ng-model="recap.credit_tr" style="width:4em;" ng-blur="updateRecap($index)" >
+					</span>
+					<span ng-switch-default>{{recap.credit_tr|frnumber}}</span>
+				</span>
+			</td>
 			<td class="numbercell">{{recap.frais_declares|frnumber:2}}</td>
-			<td class="numbercell">{{recap.TRAEnlever|frnumber}}</td>
+			<td class="numbercell">{{recap.tr_a_enlever|frnumber}}</td>
 		</tr>
 	</tbody>
 </table>
