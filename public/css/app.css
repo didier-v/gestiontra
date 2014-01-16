@@ -75,7 +75,7 @@ input.numberfocus:focus::-webkit-inner-spin-button {
 }
 
 @media print {
-  .navbar, .btn { visibility: hidden;}
+  .navbar, .btn, .hideonprint { visibility: hidden;}
   .table {
 	font-size:12pt;
   }
@@ -94,4 +94,5 @@ input.numberfocus:focus::-webkit-inner-spin-button {
   .info {
 	font-weight: bold: 
   }
+
 }

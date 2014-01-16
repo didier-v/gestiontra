@@ -1,7 +1,10 @@
 <div ng-controller="RecapitulatifCtrl" class="recapitulatif">
-<h3 class="text-center">Récapitulatif</h3>
+<h3 class="text-center">Récapitulatif {{titre}}</h3>
 <button class="btn" ng-click="print()">Imprimer</button>
-<input ng-model="recap.calculManuel" type="checkbox" ng-checked="master"> Calcul manuel
+<span class="hideonprint">
+	<input ng-model="recap.calculManuel" type="checkbox" ng-checked="master">
+		Calcul manuel
+</span>
 <table class="table">
 	<thead>
 		<th>Mois</th>

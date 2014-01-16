@@ -1,6 +1,6 @@
 /*global _, angular */
 //recapitulatif.js
-function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
+function RecapitulatifCtrl($scope,$timeout,dataSource,Selection,DateUtils) {
 
 //notifications
 	$scope.$on("anneeDidChange",function(event) {
@@ -241,6 +241,15 @@ function RecapitulatifCtrl($scope,dataSource,Selection,DateUtils) {
 		}
 
 	}; //recalculerTR
+	
+	$scope.print = function() {
+			$scope.titre = Selection.annee()+" - "+$scope.personne.prenom+" "+$scope.personne.nom;
+			$timeout(function() { // différer pour appliquer les modifications du scope
+				window.print();
+			}).then( function() {
+				$scope.titre = "";
+			});
+	}; // print
 	
 	//initialisation
 	$scope.annee = Selection.annee();
