@@ -1,8 +1,17 @@
 
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+
+input.numberfocus {
+  border: 0;
+}
+input.numberfocus::-webkit-outer-spin-button, input.numberfocus::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  border: 0;
+}
+input.numberfocus:focus::-webkit-outer-spin-button {
+  -webkit-appearance: outer-spin-button;
+}
+input.numberfocus:focus::-webkit-inner-spin-button {
+  -webkit-appearance: inner-spin-button;
 }
 
 .modal-frais {

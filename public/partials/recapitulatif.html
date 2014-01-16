@@ -33,13 +33,13 @@
 			<td class="numbercell">{{recap.tr_a_distribuer|frnumber}}</td>
 			<td class="numbercell">
 				<div ng-if="($index!=0)">
-					<input type="number" ng-model="recap.tr_distribues" style="width:4em;" ng-blur="updateRecap($index)" >
+					<input type="number" class="numberfocus" ng-model="recap.tr_distribues" style="text-align: right;width:4em;" ng-blur="updateRecap($index)" >
 				</div>
 			</td>
 			<td class="numbercell">
 				<span ng-switch="$index">
 					<span ng-switch-when="0" >
-					<input type="number" ng-model="recap.debit_tr" style="width:4em;" ng-blur="updateRecap($index)" >
+					<input type="number" class="numberfocus" ng-model="recap.debit_tr" style="text-align: right;width:4em;" ng-blur="updateRecap($index)" >
 					</span>
 					<span ng-switch-default>{{recap.debit_tr|frnumber}}</span>
 				</span>
@@ -47,7 +47,7 @@
 			<td class="numbercell">
 				<span ng-switch="$index">
 					<span ng-switch-when="0" >
-					<input type="number" ng-model="recap.credit_tr" style="width:4em;" ng-blur="updateRecap($index)" >
+					<input type="number" class="numberfocus" ng-model="recap.credit_tr" style="text-align: right;width:4em;" ng-blur="updateRecap($index)" >
 					</span>
 					<span ng-switch-default>{{recap.credit_tr|frnumber}}</span>
 				</span>
